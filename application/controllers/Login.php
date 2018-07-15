@@ -17,7 +17,7 @@ class Login extends CI_Controller {
 
 		$where = array(
 			'User_Name' => $User_Name,
-			'Password' => $Password
+			'Password' => md5($Password)
 			);
 
 		$cek = $this->m_login->cek_login("admin",$where)->num_rows();
@@ -30,7 +30,7 @@ class Login extends CI_Controller {
 
 			$this->session->set_userdata($data_session);
 
-			redirect(base_url("index.php/login")); //dahulu ("index.php/login")
+			redirect(base_url("index.php/beranda")); //dahulu ("index.php/login")
 
 		}else{
 			echo "Username dan password salah !";
