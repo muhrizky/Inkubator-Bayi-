@@ -52,3 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['get-data-monitoring'] = 'Beranda/getDataMonitoring';
+$route['get-data-monitoring2'] = 'Kontrol/getDataMonitoring2';

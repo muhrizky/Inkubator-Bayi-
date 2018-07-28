@@ -24,6 +24,7 @@
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url();?>assets/build/css/custom.min.css" rel="stylesheet">
   </head>
+  
 
   <body class="nav-md">
     <div class="container body">
@@ -31,7 +32,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?php echo base_url();?>index.php/beranda" class="site_title"><i class="fa fa-paw"></i> <span>ADMIN PANEL</span></a>
+              <a href="<?php echo base_url();?>beranda" class="site_title"><i class="fa fa-paw"></i> <span>ADMIN PANEL</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -43,7 +44,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>Admin</h2>
+                <h2><?php echo $getNama?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -55,26 +56,27 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="<?php echo base_url();?>index.php/beranda">
+                  <li><a href="<?php echo base_url();?>beranda">
                   <i class="fa fa-home"></i> Beranda </a>
                   </li>
-                  <li><a href="<?php echo base_url();?>index.php/monitoring">
+                  <li><a href="<?php echo base_url();?>monitoring">
                   <i class="fa fa-bar-chart-o"></i> Monitoring </a>
                     
-                  </li>
-                  <li><a href="<?php echo base_url();?>index.php/simulasi">
-                  <i class="fa fa-youtube-play"></i> Simulasi </a>
+                <!-- </li>
+                  <li><a href=<"?php echo base_url();?>simulasi">
+                  <i class="fa fa-youtube-play"></i> Simulasi </a> </li>
+                  -->
                    
-                  </li>
-                  <li><a href="<?php echo base_url();?>index.php/kontrol">
+                 
+                  <li><a href="<?php echo base_url();?>kontrol">
                   <i class="fa fa-wrench"></i> Kontrol </a>
                     
                   </li>
-                  <li><a href="<?php echo base_url();?>index.php/data">
+                  <li><a href="<?php echo base_url();?>data">
                   <i class="fa fa-file"></i> Data </a>
                     
                   </li>
-                  <li><a href="<?php echo base_url();?>index.php/login">
+                  <li><a href="<?php echo base_url();?>login">
                   <i class="fa fa-power-off"></i>Lagout </a>
                     
               </div>
@@ -128,7 +130,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="dashboard_graph x_panel">
                   <div class="x_title">
-                        <h2><b>Kontrol Inkubator</b></h2>
+                        <h2><b>Kontrol Inkubator 1</b></h2>
                         
                         <div class="clearfix"></div>
                   </div>
@@ -137,13 +139,13 @@
                         <div class="alert alert-warning alert-dismissible fade in" role="alert">
                           
                             <div class="title">
-                              <h3 style= "color:white"><b>Kontrol Inkubator 1</b></h3>
+                              <h3 style= "color:white"><b>Kontrol Suhu</b></h3>
                               <h2 style= "color:white">Suhu Saat ini</h2>
-                              <h1 style= "color:white">22°C</h1>
+                              <h1 id="nilai-suhu" style="color:white"></h1>
                             </div>
                             
-                            <div class="input-group">
-                              <input placeholder="Suhu Tujuan dalam °C" type="text" class="form-control">
+                            <div class="input-group" action="<?php echo base_url('Kontrol/updatesuhu') ?>">
+                              <input name="sensor1" placeholder="Suhu Tujuan dalam °C" type="text" class="form-control">
                                 <span class="input-group-btn">
                                   <button type="button" class="btn btn-primary">Set Suhu Tujuan</button>
                                 </span>
@@ -159,13 +161,13 @@
                     <div class="alert alert-danger alert-dismissible fade in" role="alert"> 
                           
                             <div class="title">
-                              <h3 style= "color:white"><b>Kontrol Inkubator 2</b></h3>
-                              <h2 style= "color:white">Suhu Saat ini</h2>
-                              <h1 style= "color:white">32°C</h1>
+                              <h3 style= "color:white"><b>Kontrol Kelembapan</b></h3>
+                              <h2 style= "color:white">Kelembapan Saat ini</h2>
+                              <h1 id="nilai_kelembapan_sementara" style= "color:white"></h1>
                             </div>
                             
                             <div class="input-group">
-                              <input placeholder="Suhu Tujuan dalam °C" type="text" class="form-control">
+                              <input placeholder="Kelembapan Tujuan dalam %" type="text" class="form-control">
                                 <span class="input-group-btn">
                                   <button type="button" class="btn btn-primary">Set Suhu Tujuan</button>
                                 </span>
@@ -244,6 +246,21 @@
 
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url();?>assets/build/js/custom.min.js"></script>
+    <script>
+      $(document).ready(function(){
+          setInterval(function(){ 
+            var url = "<?=base_url('get-data-monitoring');?>";
+            $.get(url, function( data ) {
+                var val = JSON.parse(data);
+                $('#nilai-suhu').text(+val.suhu_sementara+"°C");
+                $('#nilai_kelembapan_sementara').text(+val.kelembapan_sementara+"%");
+                
+            }); 
+            // console.log(url);
+          }, 1000);
+      });
+    </script>
 
+    
   </body>
 </html>

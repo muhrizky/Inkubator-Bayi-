@@ -31,7 +31,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?php echo base_url();?>index.php/beranda" class="site_title"><i class="fa fa-paw"></i> <span>ADMIN PANEL</span></a>
+              <a href="<?php echo base_url();?>beranda" class="site_title"><i class="fa fa-paw"></i> <span>ADMIN PANEL</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -43,7 +43,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>Admin</h2>
+                <h2><?php echo $getNama?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -55,26 +55,28 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="<?php echo base_url();?>index.php/beranda">
+                  <li><a href="<?php echo base_url();?>beranda">
                   <i class="fa fa-home"></i> Beranda </a>
                   </li>
-                  <li><a href="<?php echo base_url();?>index.php/monitoring">
+                  
+                  <li><a href="<?php echo base_url();?>monitoring">
                   <i class="fa fa-bar-chart-o"></i> Monitoring </a>
                     
-                  </li>
-                  <li><a href="<?php echo base_url();?>index.php/simulasi">
-                  <i class="fa fa-youtube-play"></i> Simulasi </a>
+                 <!-- </li>
+                  <li><a href=<"?php echo base_url();?>simulasi">
+                  <i class="fa fa-youtube-play"></i> Simulasi </a> </li>
+                  -->
                    
-                  </li>
-                  <li><a href="<?php echo base_url();?>index.php/kontrol">
+                  
+                  <li><a href="<?php echo base_url();?>kontrol">
                   <i class="fa fa-wrench"></i> Kontrol </a>
                     
                   </li>
-                  <li><a href="<?php echo base_url();?>index.php/data">
+                  <li><a href="<?php echo base_url();?>data">
                   <i class="fa fa-file"></i> Data </a>
                     
                   </li>
-                  <li><a href="<?php echo base_url();?>index.php/login">
+                  <li><a href="<?php echo base_url();?>login">
                   <i class="fa fa-power-off"></i>Lagout </a>
                     
               </div>
@@ -124,14 +126,11 @@
                       <h1><span class="img-circle img-responsive text-center"><i class="fa fa-tint"></i></span></h1>
                       <h4 class="text-center">Kelembapan</h4>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6"> 
+                    <div class="col-md-6 col-sm-6 col-xs-6"> 
                       <h1><span class="img-circle img-responsive text-center"><i class="fa fa-child"></i></span></h1>
                       <h4 class="text-center">Berat Badan </h4>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6"> 
-                      <h1><span class="img-circle img-responsive text-center"><i class="fa fa-user"></i></span></h1>
-                      <h4 class="text-center">Kadar Oksigen</h4>
-                    </div>
+                    
                     
 
                 </div>
@@ -162,16 +161,16 @@
 
                   <div class="x_content">
                     <div class="row">
-
-                      <div class="col-md-12">
+ 
+                      <div class="col-md-12" >
 
                         <!-- price element -->
-                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="alert alert-success alert-dismissible fade in" role="alert">
                           
-                            <div class="title">
+                            <div class="title" style="color:white;">
                               <h2>Suhu</h2>
-                              <h1>22°C</h1>
+                              <h1 id="nilai-suhu" ></h1>
                             </div>
                             
                             
@@ -181,12 +180,12 @@
                         <!-- price element -->
 
                         <!-- price element -->
-                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="alert alert-info alert-dismissible fade in" role="alert">
                           
-                            <div class="title">
+                            <div class="title" style="color:white;">
                               <h2>Kelembapan</h2>
-                              <h1>85%</h1>
+                              <h1 id="nilai-kelembaban" ></h1>
                             </div>
                             
                             
@@ -196,12 +195,12 @@
                         <!-- price element -->
 
                         <!-- price element -->
-                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="alert alert-warning alert-dismissible fade in" role="alert">
                           
-                            <div class="title">
+                            <div class="title"  style="color:white;" >
                               <h2>Berat Badan</h2>
-                              <h1>11 Kg</h1>
+                              <h1 id="nilai-bb" ></h1>
                             </div>
                             
                             
@@ -211,16 +210,7 @@
                         <!-- price element -->
 
                         <!-- price element -->
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                          
-                            <div class="title">
-                              <h2>Kadar Oksigen</h2>
-                              <h1>43 mg/l</h1>
-                            </div>
-                            
-                            
-                          </div>
+                       
                           
 
                     
@@ -230,8 +220,8 @@
                 </div>
               </div>
               
-              <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-12">
+              
+              <div class="col-md-12 col-sm-6 col-xs-12">
               <div class="dashboard_graph x_panel">
               <div class="x_title">
                     <h2><b>Sensor Suhu</b></h2>
@@ -239,9 +229,13 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <div class="demo-container">
-                      <div id="chart_plot_03" class="demo-placeholder"></div>
-                    </div>
+                  <canvas id="lineChart2"></canvas>
+                  <?php
+                      foreach($database as $database){
+                          $waktu[] = $database->waktu;
+                          $suhu[] = (float) $database->Suhu;
+                      }
+                  ?>
                     <div class="x_content">
                   <h2><b>Grafik Data Suhu Inkubator 1</b></h2>
                     <div>
@@ -254,10 +248,10 @@
                 </div>
               </div>
 
-              <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="col-md-2 col-sm-6 col-xs-12">
               <div class="dashboard_graph x_panel">
               <div class="x_title">
-                    <h2><b>Sensor Kelembapan</b></h2>
+                    <h4><b>Sensor Kelembapan</b></h>
                     
                     <div class="clearfix"></div>
                   </div>
@@ -265,7 +259,7 @@
                   <div class="x_content">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       <div style="text-align: center; margin-bottom: 17px">
-                        <span class="chart" data-percent="85">
+                        <span id="chart" class="chart" data-percent="100">
                                             <span class="percent"></span>
                         </span>
                       </div>
@@ -274,7 +268,7 @@
                       
                       <p><h4>Inkubator Bayi</h4> </p>
                       <div class="divider"></div>
-                      <p><h4>If you've decided to go in development mode and tweak all of this a bit, there are few things you should do.</h4> </p>
+                      <p><h4>Grafik ini menunjukan semua aktifitas dari suhu baik Peningkatan atau penurunan Kadar Oksigen dalam inkubator bayi semuanya termonitor dengan baik disini</h4> </p>
 
                       
                     </div>  
@@ -285,48 +279,22 @@
                 </div>
               </div>
 
-
-              <div class="col-md-3 col-sm-6 col-xs-12">
+              
+              <div class="col-md-10 col-sm-6 col-xs-12">
               <div class="dashboard_graph x_panel">
               <div class="x_title">
-                    <h2><b>Sensor Berat</h2>
+                    <h2><b>Sensor Berat Badan</b></h2>
                     
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                   
-                    <div class="col-md-6  col-sm-6 col-xs-6 "> 
-                      <h1><span class="img-circle img-responsive text-center"><i class="fa fa-child"></i></span></h1>
-                      <br>
-                    </div>
-                      <div class="col-md-6 col-sm-6 col-xs-6"> 
-                        <h3>11 Kg</h3>
-                      
-                      </div>
-                    
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                        <p><h4>Inkubator Bayi</h4> </p>
-                        <div class="divider"></div>
-                        <p><h4>If you've decided to go in development mode and tweak all of this a bit, there are few things you should do.</h4> </p>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-              <div class="col-md-12 col-sm-6 col-xs-12">
-              <div class="dashboard_graph x_panel">
-              <div class="x_title">
-                    <h2><b>Sensor Kadar Oksigen</b></h2>
-                    
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <div class="demo-container">
-                      <div id="chart_plot_01" class="demo-placeholder"></div>
-                    </div>
+                  <canvas id="mybarChart2"></canvas>
+                  <?php
+                      foreach($database2 as $database2){
+                          $waktu2[] = $database2->waktu;
+                          $bb[] = (float) $database2->Berat_Badan;
+                      }
+                  ?>
                     <div class="x_content">
                   <h2><b>Grafik Data Kadar Oksigen Inkubator 1</b></h2>
                     <div>
@@ -337,9 +305,21 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              
+
+              
+
+
+              
+
+             
             
 
+            <!-- /set chart kelembapan -->
+              <?php
+                $nilai  = $this->m_monitoring->monitoring();
+              ?>
+              <!-- / end set chart kelembapan -->
                     
                   
                     
@@ -406,7 +386,82 @@
     <script src="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="<?php echo base_url();?>assets/build/js/custom.min.js"></script>
+    <script src="<?php echo base_url();?>assets/build/js/custom.js"></script>
+    
+    <!-- Java Script nilai sensor realtime JSon -->
+    <script>
+      $(document).ready(function(){
+          setInterval(function(){ 
+            var url = "<?=base_url('get-data-monitoring');?>";
+            $.get(url, function( data ) {
+                var val = JSON.parse(data);
+                $('#nilai-suhu').text(val.suhu_sementara+"°C");
+                $('#nilai-kelembaban').text(+val.kelembapan_sementara+"%");
+                $('#nilai-bb').text(val.bb+" Kg");
+                $('#nilai-bb2').text(val.bb+" Kg");
+                
+            }); 
+            // console.log(url);
+          }, 500);
+      });
+    </script>
+
+  <!-- /java script bset chart kelembapan -->
+    <script>
+    var value = <?php echo $nilai->kelembapan_sementara; ?>;
+      $("#chart").attr("data-percent", value.toString());
+     </script>
+
+     <!-- /java script  chart data suhu-->
+     <script>  
+          var ctx = document.getElementById("lineChart2",);
+          var lineChart2 = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: <?php echo json_encode($waktu);?>,
+            datasets: [{
+            label: "Sensor Suhu Inkubator 1",
+            backgroundColor: "rgba(38, 185, 154, 0.31)",
+            borderColor: "rgba(38, 185, 154, 0.7)",
+            pointBorderColor: "rgba(38, 185, 154, 0.7)",
+            pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+            pointHoverBackgroundColor: "#fff",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointBorderWidth: 1,
+            data: <?php echo json_encode($suhu);?>
+            
+            },]
+          },
+          });
+      </script>
+      <script>
+       var ctx = document.getElementById("mybarChart2");
+			  var mybarChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+				  labels: <?php echo json_encode($waktu2);?>,
+				  datasets: [{
+					label: 'Berat Badan Bayi Inkubator 1',
+					backgroundColor: "#26B99A",
+					data: <?php echo json_encode($bb);?>
+				  },]
+				},
+
+				options: {
+				  scales: {
+					yAxes: [{
+					  ticks: {
+						beginAtZero: true
+					  }
+					}]
+				  }
+				}
+			  });
+      </script>
+
+     
+     
+
 
   </body>
 </html>

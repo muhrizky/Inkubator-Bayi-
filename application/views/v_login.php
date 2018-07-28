@@ -31,7 +31,7 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form action="<?php echo base_url('index.php/login/aksi_login'); ?>" method="post">
+            <form action="<?php echo base_url('login/aksi_login'); ?>" method="post">
               <h1>Login Form</h1>
               <div>
                 <input type="text" class="form-control" placeholder="Username" name="User_Name" />

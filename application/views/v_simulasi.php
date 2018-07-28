@@ -31,7 +31,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?php echo base_url();?>index.php/beranda" class="site_title"><i class="fa fa-paw"></i> <span>ADMIN PANEL</span></a>
+              <a href="<?php echo base_url();?>beranda" class="site_title"><i class="fa fa-paw"></i> <span>ADMIN PANEL</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -43,7 +43,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>Admin</h2>
+                <h2><?php echo $getNama?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -55,26 +55,26 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a href="<?php echo base_url();?>index.php/beranda">
+                  <li><a href="<?php echo base_url();?>beranda">
                   <i class="fa fa-home"></i> Beranda </a>
                   </li>
-                  <li><a href="<?php echo base_url();?>index.php/monitoring">
+                  <li><a href="<?php echo base_url();?>monitoring">
                   <i class="fa fa-bar-chart-o"></i> Monitoring </a>
                     
                   </li>
-                  <li><a href="<?php echo base_url();?>index.php/simulasi">
-                  <i class="fa fa-youtube-play"></i> Simulasi </a>
-                   
-                  </li>
-                  <li><a href="<?php echo base_url();?>index.php/kontrol">
+                  <!-- </li>
+                  <li><a href=<"?php echo base_url();?>simulasi">
+                  <i class="fa fa-youtube-play"></i> Simulasi </a> </li>
+                  -->
+                  <li><a href="<?php echo base_url();?>kontrol">
                   <i class="fa fa-wrench"></i> Kontrol </a>
                     
                   </li>
-                  <li><a href="<?php echo base_url();?>index.php/data">
+                  <li><a href="<?php echo base_url();?>data">
                   <i class="fa fa-file"></i> Data </a>
                     
                   </li>
-                  <li><a href="<?php echo base_url();?>index.php/login">
+                  <li><a href="<?php echo base_url();?>login">
                   <i class="fa fa-power-off"></i>Lagout </a>
                     
               </div>
