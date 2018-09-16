@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>Sistem Pengendali Inkubator Bayi</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="<?php echo base_url();?>assets/vendors/bootstrap/dist/css/bootstrap.min.css">
@@ -30,14 +29,15 @@
 
       <div class="login_wrapper">
         <div class="animate form login_form">
+        <?=$this->session->flashdata('notif')?>
           <section class="login_content">
             <form action="<?php echo base_url('login/aksi_login'); ?>" method="post">
               <h1>Login Form</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" name="User_Name" />
+                <input type="text" class="form-control" placeholder="Username" name="User_Name"  required="required" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" name="Password" />
+                <input type="password" class="form-control" placeholder="Password" name="Password" required="required" />
               </div>
               <div>
               <button type="submit" class="btn btn-default"?>Log in</button>
@@ -54,7 +54,7 @@
 
                 <div>
                   <h1></i> Sistem Pengendali Inkubator Bayi </h1>
-                  <p>©2018 All Rights Reserved. Laboratorium RUmah Sakit Sumber Waras Pemalang</p>
+                  <p>©2018 All Rights Reserved. Laboratorium Rumah Sakit Sumber Waras Pemalang</p>
                 </div>
               </div>
             </form>
@@ -98,5 +98,13 @@
         </div>
       </div>
     </div>
+      <!-- jQuery -->
+        <script src="<?php echo base_url();?>assets/vendors/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="<?php echo base_url();?>assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- FastClick -->
+        <script src="<?php echo base_url();?>assets/vendors/fastclick/lib/fastclick.js"></script>
+        <!-- Custom Theme Scripts -->
+        <script src="<?php echo base_url();?>assets/build/js/custom.min.js"></script>
   </body>
 </html>

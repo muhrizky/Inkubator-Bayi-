@@ -34,6 +34,8 @@
     <link href="<?php echo base_url();?>assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url();?>assets/build/css/custom.min.css" rel="stylesheet">
+     <!-- Custom modal dialog -->
+     <link rel="stylesheet" href="<?php echo base_url('assets/custome/style.css'); ?>">
   </head>
 
   <body class="nav-md">
@@ -50,7 +52,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="<?php echo base_url();?>assets/production/images/img.jpg" alt="User Image" class="img-circle profile_img">
+              <img src="<?php echo base_url();?>assets/production/images/<?php echo $getPhoto?>" alt="User Image" class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -63,33 +65,74 @@
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>General</h3>
+            <div class="menu_section">
+              <ul class="nav side-menu">
+              <?php if($this->session->userdata('jabatan') == 'Operator'): ?>
+              <li><a><i class="fa fa-users"></i> Admin<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>lista">List Admin</a>
+                        
+                        <li><a href="<?php echo base_url();?>groupa">Group Admin</a>
+                        <p> </p>
+                        </li>
+                    </ul>
+                  </li>
+                  <?php endif; ?>
+                  </ul>
+                  <h3>General</h3>
+                  <p> </p>
                 <ul class="nav side-menu">
                   <li><a href="<?php echo base_url();?>beranda">
                   <i class="fa fa-home"></i> Beranda </a>
                   </li>
                   <li><a href="<?php echo base_url();?>monitoring">
                   <i class="fa fa-bar-chart-o"></i> Monitoring </a>
+                  </li>
                     
-                  </li>
-                  <li><a href="<?php echo base_url();?>simulasi">
-                  <i class="fa fa-youtube-play"></i> Simulasi </a>
+                   <!--  Tab layout monitoring
+                  li><a href="?php echo base_url();?>monitoring">
+                  <i class="fa fa-bar-chart-o"></i> Monitoring </a>
+                   --> 
                    
-                  </li>
-                  <li><a href="<?php echo base_url();?>kontrol">
-                  <i class="fa fa-wrench"></i> Kontrol </a>
+                   <?php if($this->session->userdata('jabatan') == 'Operator'): ?>
+                    <li><a href="<?php echo base_url();?>kontrol">
+                    <i class="fa fa-wrench"></i> Kontrol </a></li>
+                    </li>
+                    <?php endif; ?>
                     
                   </li>
                   <li><a href="<?php echo base_url();?>data">
                   <i class="fa fa-file"></i> Data </a>
                     
                   </li>
-                  <li><a href="<?php echo base_url();?>login">
+                  <li><a data-toggle="modal" data-target="#modallogout">
                   <i class="fa fa-power-off"></i>Lagout </a>
-                    
+                  
+                  </li>
               </div>
+              <!-- modal logout -->
+               <div class="modal fade"  id="modallogout" role="dialog" >
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
 
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel2">Apakah anda ingin keluar?</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>Anda akan melepaskan semua pekerjaan yang belum disimpan, tekan 'Batal' untuk kembali ke halaman atau 'Konfirmasi' untuk keluar.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                          
+                          <a href="<?php echo base_url();?>login/logout" type="button" class="btn btn-primary">Konfirmasi</a>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+              <!-- end modal logout -->
             </div>
             <!-- /sidebar menu -->
 
@@ -124,134 +167,28 @@
                   <div class="dashboard_graph x_panel">
                     
                     <div class="x_content">
-                      <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="col-md-10 col-sm-12 col-xs-12">
 
                         <div class="col-md-12 col-sm-11 col-xs-11">  
-                          <h1><span class="img-circle img-responsive"><i class="fa fa-file"></i> <b>Data Inkubator<b> <h2>Menu data inkubator ini digunakan untuk melihat data raltime dari sensor yang digunakan. Memungkinkan juga untuk mengunduhnya sesaui dengan tanggal dan waktu yang dipilih </h2> </span> </h1>
+                          <h1><span class="img-circle img-responsive"><i class="fa fa-file"></i> <b>Data Inkubator<b> </span> </h1>
+                          <h2>Menu data inkubator ini digunakan untuk melihat data dari sensor yang digunakan. Memungkinkan juga untuk mengunduhnya sesuai dengan tanggal dan waktu yang diplih</h2>
                         </div>
-                      
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                      <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                  <div style= "color:white">
-                    <h3>Petunjuk Pengisian</h3>
-                    <h2>User harus mengisiskan semua form yang ada, dari inkubator yang dipilih dan rentang waktunya. Sejauh ini hanya inkubator satu yang dapat di download datanya.</h2>
-                    </div>
-                  </div>
-                  </div>
-                      
-
                   </div>
                 </div>
               </div>
 
-
               <div class="row">
-              <div class="x_context">
-              <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="x_panel fixed_height_320">
-                  <div class="x_title">
-                  <h4><b>Pilih Inkubator</b></h4>
-                    
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                  
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                  <div class="col-md-12col-sm-12 col-xs-12">
-                    <div class="checkbox">
-                        <label >
-                          <input type="checkbox" class="flat" data-parsley-mincheck="2" required class="flat">  Inkubator 1 
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="checkbox">
-                        <label>
-                          <input type="checkbox" class="flat" disabled="disabled" > Inkubator 2
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="checkbox">
-                        <label>
-                          <input type="checkbox" class="flat" disabled="disabled"> Inkubator 3
-                        </label>
-                      </div>
-                    </div>   
-                  </div>
-                </div>
-
-                </div>
-                        </div>
-                      </div>
-                  
-
-
-                <div class="col-md-9 col-sm-6 col-xs-12">
-                      <div class="x_panel fixed_height_320">
-                        <div class="x_title">
-                          <h2><b>Unduh Data Inkubator</b></h2>
-                          
-                          <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                          
-                        <div style= "color:#5A738E" class="alert alert-success alert-dismissible fade in" role="alert">
-                          <div  style= "color:white"> <h4><b> Masukan Tanggal dan waktu mulai</b> </h4> </div>
-                          <div class="form-group">
-                              <div class='input-group date' id='myDatepicker'>  
-                                  <input  type='text' class="form-control" />
-                                  <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                              </div>
-                            </div>
-                            <div  style= "color:white"> <h4><b> Masukan Tanggal dan waktu Selesai</b> </h4> </div>
-                          <div class="form-group">      
-                              <div class='input-group date' id='myDatepicker2'>
-                                  <input  type='text' class="form-control" />
-                                  <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                              </div>
-                              <button  type="button" class="btn btn-default btn-sm">Unduh Data</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                            
-                            
-                  
-
-            
               <div class="x_context">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Tabel Inkubator 1</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <h2><b>Tabel Inkubator</b></h2>
+                    </div>
+                  <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                      DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
-                    </p>
-                    <table id="datatable" class="table table-striped table-bordered">
+                    <table  class="table table-striped table-bordered">
                       <thead>
                         <tr>
                           <th>No</th>
@@ -261,44 +198,83 @@
                           <th>Berat Badan</th>
                           
                         </tr>
-                      </thead>
+                        </thead>
+                        <tbody id = "tabeldata">
                             <?php 
-                            $no = 1;
-                            foreach($babymonitoring as $bm){ 
+                            $no = $this->uri->segment('4')+ 1;
+                            foreach($babymonitoring2 as $bm){ 
                             ?>
-                            <tbody>
+                            
                             <tr>
                               <td><?php echo $no++ ?></td>
                               <td><?php echo $bm->waktu ?></td>
-                              <td><?php echo $bm->suhu_sementara ?></td>
-                              <td><?php echo $bm->kelembapan_sementara ?></td>
-                              <td><?php echo $bm->bb ?></td>
+                              <td><?php echo $bm->suhu ?>°C</td>
+                              <td><?php echo $bm->lembab ?>%</td>
+                              <td><?php echo $bm->bb ?> Kg</td>
                               
                             </tr>
-                            </tbody>
+                            
                             <?php } ?>
-                            </tr>
-                      
-
-
-                      
+                          </tbody>
                     </table>
+                      <?php 
+                      echo $this->pagination->create_links();
+                      ?>
                   </div>
                 </div>
               </div>
-                
- 
-                
+           </div>
+
+              
+              <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                  <div class="x_title">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <h2><b>Download Data Inkubator</b></h2>
+                    </div>
+                    <div class="clearfix"></div>
                   </div>
-
-
+                  
+                  <form class="form-inline" method="get" action="<?php echo base_url('Data/unduhdata');?>" >
+                        <div class='col-sm-5'>
+                          <div class="form-group">
+                          <label for="ex3">Masukan Waktu Awal</label>
+                              <div name="waktu_awal"  class='input-group date' id='myDatepicker'>
+                                  <input name="waktu_awal" required="required" type='text' class="form-control"  class="jsDate" />
+                                  <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class='col-sm-5'>
+                          <div class="form-group">
+                          <label for="ex3">Masukan Waktu Akhir</label>
+                              <div name="waktu_akhir" class='input-group date' id='myDatepicker2'>
+                                  <input name="waktu_akhir" required="required" type='text' class="form-control" class="jsDate" />
+                                  <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                        <div class='col-sm-2'>
+                          <button type="submit" class="btn btn-primary">Unduh Data</button>
+                        </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /end download data -->
 
                         
 
-                </div>
+                      </div>
                     </div>
                   </div>
-              </div>
+                </div>
               </div>
 
           
@@ -310,7 +286,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-          ©2018 Laboratorium Rumah Sakit Sumber Waras Pemalang</a>
+          ©2018 Laboratorium Teknik Kontrol Otomat Departemen Teknik Elektro Universitas Diponegoro</a>
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -384,15 +360,36 @@
 
     <!-- Initialize datetimepicker -->
       <script>
-          $('#myDatepicker').datetimepicker({
-              format: 'DD/MMMM/YYYY HH:mm:ss'
-          });
+          $('.jsDate').datetimepicker({
+            onSelect: function(dateText, inst) {
+              var date = $val();
 
-          $('#myDatepicker2').datetimepicker({
-            format: 'DD/MMMM/YYYY HH:mm:ss'
+              if($("#myDatepicker").val()!="" && $("#myDatepicker2").val()!=""){
+              var url = "<?=base_url('unduhdata');?>?start="+$("#myDatepicker").val()+'&end='+$("#myDatepicker2").val();
+              alert(url);
+              }
+          }
+           
           });
-          
-          
+         
+          </script>
+
+      <script>
+      $('#myDatepicker2').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm:ss'
+      });
+      </script>
+
+       <script>
+      $('#myDatepicker').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm:ss'
+      });
+      </script>
+
+      <script>
+      $(document).ready(function() {
+          $('datatable').dataTable();
+      } );
       </script>
 
   </body>

@@ -20,9 +20,15 @@
     <link href="<?php echo base_url();?>assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- PNotify -->
+    <link href="<?php echo base_url();?>assets/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
     
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url();?>assets/build/css/custom.min.css" rel="stylesheet">
+     <!-- Custom modal dialog -->
+     <link rel="stylesheet" href="<?php echo base_url('assets/custome/style.css'); ?>">
   </head>
   
 
@@ -40,7 +46,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="<?php echo base_url();?>assets/production/images/img.jpg" alt="User Image" class="img-circle profile_img">
+              <img src="<?php echo base_url();?>assets/production/images/<?php echo $getPhoto?>" alt="User Image" class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -53,8 +59,22 @@
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>General</h3>
+            <div class="menu_section">
+              <ul class="nav side-menu">
+              <?php if($this->session->userdata('jabatan') == 'Operator'): ?>
+              <li><a><i class="fa fa-users"></i> Admin<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>lista">List Admin</a>
+                        
+                        <li><a href="<?php echo base_url();?>groupa">Group Admin</a>
+                        <p> </p>
+                        </li>
+                    </ul>
+                  </li>
+                  <?php endif; ?>
+                  </ul>
+                  <h3>General</h3>
+                  <p> </p>
                 <ul class="nav side-menu">
                   <li><a href="<?php echo base_url();?>beranda">
                   <i class="fa fa-home"></i> Beranda </a>
@@ -68,19 +88,45 @@
                   -->
                    
                  
-                  <li><a href="<?php echo base_url();?>kontrol">
-                  <i class="fa fa-wrench"></i> Kontrol </a>
+                  <?php if($this->session->userdata('jabatan') == 'Operator'): ?>
+                    <li><a href="<?php echo base_url();?>kontrol">
+                    <i class="fa fa-wrench"></i> Kontrol </a></li>
+                    </li>
+                    <?php endif; ?>
                     
                   </li>
                   <li><a href="<?php echo base_url();?>data">
                   <i class="fa fa-file"></i> Data </a>
                     
                   </li>
-                  <li><a href="<?php echo base_url();?>login">
+                  <li><a data-toggle="modal" data-target="#modallogout">
                   <i class="fa fa-power-off"></i>Lagout </a>
-                    
+                  
+                  </li>
               </div>
+              <!-- modal logout -->
+               <div class="modal fade"  id="modallogout" role="dialog" >
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
 
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel2">Apakah anda ingin keluar?</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>Anda akan melepaskan semua pekerjaan yang belum disimpan, tekan 'Batal' untuk kembali ke halaman atau 'Konfirmasi' untuk keluar.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                          
+                          <a href="<?php echo base_url();?>login/logout" type="button" class="btn btn-primary">Konfirmasi</a>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+              <!-- end modal logout -->
             </div>
             <!-- /sidebar menu -->
 
@@ -114,26 +160,46 @@
                   <div class="dashboard_graph x_panel">
                     
                     <div class="x_content">
-                      <div class="col-md-2 col-sm-3 col-xs-12"  > 
-                        <img <span class="img-responsive text-center" src="<?php echo base_url();?>assets/production/images/attention.png" class="img-responsive avatar-view">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                      <h1><b>Kontrol Inkubator<b></h1>
+                      <p><h2>Menu kontrol dalam sistem ini digunakan ketika menginginkan kontrol secara manual pada inkubator bayi. Sensor yang dapat dikontrol adalah sebagai berikut</h2></p>
+                    </div>
+                    <br />
+                  <div class="col-md-3 col-sm-6 col-xs-6"> 
+                      <h1><span class="img-circle img-responsive text-center"><i class="fa fa-cc"></i></span></h1>
+                      <h4 class="text-center">Suhu</h4>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-6"> 
+                      <h1><span class="img-circle img-responsive text-center"><i class="fa fa-tint"></i></span></h1>
+                      <h4 class="text-center">Kelembapan</h4>
+                    </div>
+                    <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="col-md-12 col-sm-11 col-xs-11">  
+                          <h1><span class="img-circle img-responsive"><i class="fa fa-warning"></i> <b>Kontrol Inkubator<b> </span> </h1>
+                          <h2>Menu kontrol dalam sistem ini digunakan ketika menginginkan kontrol secara manual pada inkubator bayi. Sensor yang dapat dikontrol adalah sensor suhu dan kelembapan.</h2>
+                        </div> -->
+                      <!-- <div class="col-md-2 col-sm-3 col-xs-12"  > 
+                        <img class="img-responsive text-center" src="<?php echo base_url();?>assets/production/images/attention.png" class="img-responsive avatar-view">
                         
                         </div>
                       <div class="col-md-10 col-sm-9 col-xs-12">
                         <h1><b>Kontrol Inkubator<b></h1>
-                        <p><h2>Peringatan, menu kontrol dalam sistem ini hanya digunakan dalam ujicoba. dalam prakteknya menu kontrol ini belum bisa digunakan</h2></p>
-                      </div>
+                        <p><h2>Menu kontrol dalam sistem ini digunakan ketika menginginkan kontrol secara manual pada inkubator bayi. Sensor yang dapat dikontrol adalah sensor suhu dan kelembapan.</h2></p>
+                      </div> -->
 
                   </div>
                 </div>
               </div>
-
+              
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="dashboard_graph x_panel">
                   <div class="x_title">
-                        <h2><b>Kontrol Inkubator 1</b></h2>
+                        <h2><b>Kontrol Inkubator</b></h2>
                         
                         <div class="clearfix"></div>
                   </div>
+                  <?=$this->session->flashdata('notif')?>
                 <div class="x_content">
                   <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="alert alert-warning alert-dismissible fade in" role="alert">
@@ -144,12 +210,15 @@
                               <h1 id="nilai-suhu" style="color:white"></h1>
                             </div>
                             
-                            <div class="input-group" action="<?php echo base_url('Kontrol/updatesuhu') ?>">
-                              <input name="sensor1" placeholder="Suhu Tujuan dalam °C" type="text" class="form-control">
+                            <form method="post" action="<?php echo base_url('Kontrol/updatesvsuhu2');?>" >
+                            <div class="input-group">
+                              <input name="nilai" placeholder="Suhu Tujuan dalam °C" required="required" type="number" size="2" min="1" max="99" class="form-control" 
+                              >
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-primary">Set Suhu Tujuan</button>
+                                  <button type="submit" class="btn btn-primary" >Set Tujuan</button>
                                 </span>
                             </div>
+                            </form>
 
                           </div>
                    </div>
@@ -166,29 +235,59 @@
                               <h1 id="nilai_kelembapan_sementara" style= "color:white"></h1>
                             </div>
                             
+                            <form method="post" action="<?php echo base_url('Kontrol/updatesvlembab2');?>" >
                             <div class="input-group">
-                              <input placeholder="Kelembapan Tujuan dalam %" type="text" class="form-control">
+                              <input name="nilai" placeholder="Kelembapan Tujuan dalam %" required="required" size="2" min="1" max="99" type="number" class="form-control">
                                 <span class="input-group-btn">
-                                  <button type="button" class="btn btn-primary">Set Suhu Tujuan</button>
+                                  <button type="submit" class="btn btn-primary" >Set Tujuan</button>
                                 </span>
                             </div>
-                            
-                            
+                            </form>
+                            </div>
                           </div>
-                          
+                        </div>
+                     </div>
                    </div>
- 
-                
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><b>Tabel Setpoin Sensor</b></h2>
+                    <div class="clearfix"></div>
                   </div>
+                  <div class="x_content">
 
-
-
-                        
-
+                    <table class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Jenis Sensor</th>
+                          <th>Nilai</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php 
+                            $no = 1;
+                            foreach($pastibisa2 as $pb){ 
+                            ?>
+                            
+                            <tr>
+                              <td><?php echo $no++ ?></td>
+                              <td><?php echo $pb->nama ?></td>
+                              <td><?php echo $pb->nilai ?></td>
+                        </tr>
+                        <?php } ?>
+                            </tbody>
+                            </tr>
+                    </table>
+                  </div>
                 </div>
-                    </div>
-                  </div>
               </div>
+                  </div>
+                  
+              </div>
+              
 
           
           </div>
@@ -199,7 +298,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-          ©2018 Laboratorium Rumah Sakit Sumber Waras Pemalang</a>
+          ©2018 Laboratorium Teknik Kontrol Otomat Departemen Teknik Elektro Universitas Diponegoro</a>
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -240,6 +339,8 @@
     <script src="<?php echo base_url();?>assets/vendors/flot.curvedlines/curvedLines.js"></script>
     <!-- DateJS -->
     <script src="<?php echo base_url();?>assets/vendors/DateJS/build/date.js"></script>
+    <!-- Parsley -->
+    <script src="<?php echo base_url();?>assets/vendors/parsleyjs/dist/parsley.min.js"></script>
     <!-- bootstrap-daterangepicker -->
     <script src="<?php echo base_url();?>assets/vendors/moment/min/moment.min.js"></script>
     <script src="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -252,14 +353,23 @@
             var url = "<?=base_url('get-data-monitoring');?>";
             $.get(url, function( data ) {
                 var val = JSON.parse(data);
-                $('#nilai-suhu').text(+val.suhu_sementara+"°C");
-                $('#nilai_kelembapan_sementara').text(+val.kelembapan_sementara+"%");
+                $('#nilai-suhu').text(+val.suhu+"°C");
+                $('#nilai_kelembapan_sementara').text(+val.lembab+"%");
                 
             }); 
             // console.log(url);
           }, 1000);
       });
     </script>
+
+    <script>
+   $(document).ready(
+
+     function (){$('.ui-pnotify').remove();}
+     );
+    </script>
+    
+
 
     
   </body>

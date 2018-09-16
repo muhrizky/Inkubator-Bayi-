@@ -55,3 +55,5 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['get-data-monitoring'] = 'Beranda/getDataMonitoring';
 $route['get-data-monitoring2'] = 'Kontrol/getDataMonitoring2';
+$route['get-data-suhu/(:any)'] = 'Beranda/getDatasuhu/$1';
+$route['get-data-bb/(:any)'] = 'Monitoring/getDatabb/$1';

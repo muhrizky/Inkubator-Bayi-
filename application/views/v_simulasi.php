@@ -66,8 +66,11 @@
                   <li><a href=<"?php echo base_url();?>simulasi">
                   <i class="fa fa-youtube-play"></i> Simulasi </a> </li>
                   -->
-                  <li><a href="<?php echo base_url();?>kontrol">
-                  <i class="fa fa-wrench"></i> Kontrol </a>
+                  <?php if($this->session->userdata('jabatan') !== 'Dokter/Suster'): ?>
+                    <li><a href="<?php echo base_url();?>kontrol">
+                    <i class="fa fa-wrench"></i> Kontrol </a></li>
+                    </li>
+                    <?php endif; ?>
                     
                   </li>
                   <li><a href="<?php echo base_url();?>data">
@@ -156,7 +159,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-          ©2018 Laboratorium Rumah Sakit Sumber Waras Pemalang</a>
+          ©2018 Laboratorium Teknik Kontrol Otomat Departemen Teknik Elektro Universitas Diponegoro</a>
           </div>
           <div class="clearfix"></div>
         </footer>

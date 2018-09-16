@@ -20,9 +20,12 @@
     <link href="<?php echo base_url();?>assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    
+    <!-- bootstrap-datetimepicker -->
+    <link  href="<?php echo base_url();?>assets/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url();?>assets/build/css/custom.min.css" rel="stylesheet">
+     <!-- Custom modal dialog -->
+     <link rel="stylesheet" href="<?php echo base_url('assets/custome/style.css'); ?>">
   </head>
 
   <body class="nav-md">
@@ -39,7 +42,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="<?php echo base_url();?>assets/production/images/img.jpg" alt="User Image" class="img-circle profile_img">
+              <img src="<?php echo base_url();?>assets/production/images/<?php echo $getPhoto?>" alt="User Image" class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -52,8 +55,22 @@
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>General</h3>
+            <div class="menu_section">
+              <ul class="nav side-menu">
+              <?php if($this->session->userdata('jabatan') == 'Operator'): ?>
+              <li><a><i class="fa fa-users"></i> Admin<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url();?>lista">List Admin</a>
+                        
+                        <li><a href="<?php echo base_url();?>groupa">Group Admin</a>
+                        <p> </p>
+                        </li>
+                    </ul>
+                  </li>
+                  <?php endif; ?>
+                  </ul>
+                  <h3>General</h3>
+                  <p> </p>
                 <ul class="nav side-menu">
                   <li><a href="<?php echo base_url();?>beranda">
                   <i class="fa fa-home"></i> Beranda </a>
@@ -68,19 +85,44 @@
                   -->
                    
                   
-                  <li><a href="<?php echo base_url();?>kontrol">
-                  <i class="fa fa-wrench"></i> Kontrol </a>
+                  <?php if($this->session->userdata('jabatan') == 'Operator'): ?>
+                    <li><a href="<?php echo base_url();?>kontrol">
+                    <i class="fa fa-wrench"></i> Kontrol </a></li>
+                    </li>
+                    <?php endif; ?>
                     
-                  </li>
                   <li><a href="<?php echo base_url();?>data">
                   <i class="fa fa-file"></i> Data </a>
                     
                   </li>
-                  <li><a href="<?php echo base_url();?>login">
+                  <li><a data-toggle="modal" data-target="#modallogout">
                   <i class="fa fa-power-off"></i>Lagout </a>
-                    
+                  
+                  </li>
               </div>
+              <!-- modal logout -->
+               <div class="modal fade"  id="modallogout" role="dialog" >
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
 
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                          </button>
+                          <h4 class="modal-title" id="myModalLabel2">Apakah anda ingin keluar?</h4>
+                        </div>
+                        <div class="modal-body">
+                          <p>Anda akan melepaskan semua pekerjaan yang belum disimpan, tekan 'Batal' untuk kembali ke halaman atau 'Konfirmasi' untuk keluar.</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                          
+                          <a href="<?php echo base_url();?>login/logout" type="button" class="btn btn-primary">Konfirmasi</a>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+              <!-- end modal logout -->
             </div>
             <!-- /sidebar menu -->
 
@@ -140,27 +182,14 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Monitoring Inkubator 1</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h3><b>Monitoring Inkubator</b></h3>*Periode data masuk terahir : <b id ="nilai-waktu"></b>
+                    
                     <div class="clearfix"></div>
                   </div>
 
                   <div class="x_content">
                     <div class="row">
+                    
  
                       <div class="col-md-12" >
 
@@ -223,24 +252,40 @@
               
               <div class="col-md-12 col-sm-6 col-xs-12">
               <div class="dashboard_graph x_panel">
-              <div class="x_title">
-                    <h2><b>Sensor Suhu</b></h2>
-                    
-                    <div class="clearfix"></div>
+              <div class="row x_title">
+              <div class="col-md-10 col-sm-12 col-xs-12">
+                      <h3><b>Sensor Suhu</b></h3><small>*Pilih tangggal terlebih dahulu</small>
+                    </div>
+                    <div class="col-sm-2">
+                    <div class="form-group">
+                        <div class='input-group date' id='myDatepicker1'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                               <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                  </div>
                   </div>
                   <div class="x_content">
                   <canvas id="lineChart2"></canvas>
                   <?php
+                  if (count($database) > 0) {
                       foreach($database as $database){
                           $waktu[] = $database->waktu;
                           $suhu[] = (float) $database->Suhu;
                       }
+                    }
+                    else {
+                      $waktu[] = '';
+                      $suhu[] = 0;
+                    }
                   ?>
                     <div class="x_content">
-                  <h2><b>Grafik Data Suhu Inkubator 1</b></h2>
+                  <h2><b>Grafik Data Suhu</b></h2>
                     <div>
                       <div class="starrr stars"></div>
-                      <h4> Grafik ini menunjukan semua aktifitas dari suhu baik Peningkatan  atau penurunan suhu dalam inkubator bayi  semuanya termonitor dengan baik disini </h4>
+                      <h4>Grafik ini menunjukan aktifitas suhu bayi terhadap waktu pada inkubator bayi berdasarkan tanggal yang dipilih.</h4>
                     </div>
 
                     </div>
@@ -248,10 +293,10 @@
                 </div>
               </div>
 
-              <div class="col-md-2 col-sm-6 col-xs-12">
+              <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="dashboard_graph x_panel">
               <div class="x_title">
-                    <h4><b>Sensor Kelembapan</b></h>
+                    <h4><b>Sensor Kelembapan</b></h4>
                     
                     <div class="clearfix"></div>
                   </div>
@@ -264,11 +309,12 @@
                         </span>
                       </div>
                     </div>
+                    
                     <div class="col-md-12 col-sm-12 col-xs-12">
                       
-                      <p><h4>Inkubator Bayi</h4> </p>
+                      <p><h4>Presentase Kelembapan</h4> </p>
                       <div class="divider"></div>
-                      <p><h4>Grafik ini menunjukan semua aktifitas dari suhu baik Peningkatan atau penurunan Kadar Oksigen dalam inkubator bayi semuanya termonitor dengan baik disini</h4> </p>
+                      <p><h4>Chart ini menunjukan presentase kelembapan pada inkubator bayi pada saat ini.</h4> </p>
 
                       
                     </div>  
@@ -280,26 +326,42 @@
               </div>
 
               
-              <div class="col-md-10 col-sm-6 col-xs-12">
+              <div class="col-md-9 col-sm-6 col-xs-12">
               <div class="dashboard_graph x_panel">
-              <div class="x_title">
-                    <h2><b>Sensor Berat Badan</b></h2>
-                    
-                    <div class="clearfix"></div>
+              <div class="row x_title">
+              <div class="col-md-9 col-sm-12 col-xs-12">
+                      <h3><b>Sensor Berat</b></h3><small>*Pilih tangggal terlebih dahulu</small>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <div class='input-group date' id='myDatepicker2'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                               <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                  </div>
                   </div>
                   <div class="x_content">
                   <canvas id="mybarChart2"></canvas>
                   <?php
-                      foreach($database2 as $database2){
-                          $waktu2[] = $database2->waktu;
-                          $bb[] = (float) $database2->Berat_Badan;
+                   if(count($database2) > 0){
+                      foreach($database2 as $database){
+                          $waktu2[] = $database->waktu;
+                          $bb[] = (float) $database->bb;
                       }
+                    }
+                    else{
+                      $waktu2[] = '';
+                      $bb[] = 0;
+                    }
                   ?>
                     <div class="x_content">
-                  <h2><b>Grafik Data Kadar Oksigen Inkubator 1</b></h2>
+                  <h2><b>Grafik Data Berat Badan</b></h2>
                     <div>
                       <div class="starrr stars"></div>
-                      <h4> Grafik ini menunjukan semua aktifitas dari suhu baik Peningkatan  atau penurunan Kadar Oksigen dalam inkubator bayi  semuanya termonitor dengan baik disini </h4>
+                      <h4>Grafik ini menunjukan aktifitas berat badan bayi terhadap waktu pada inkubator bayi berdasarkan tanggal yang dipilih</h4>
                     </div>
 
                     </div>
@@ -338,7 +400,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-          ©2018 Laboratorium Rumah Sakit Sumber Waras Pemalang</a>
+          ©2018 Laboratorium Teknik Kontrol Otomat Departemen Teknik Elektro Universitas Diponegoro</a>
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -381,10 +443,13 @@
     <script src="<?php echo base_url();?>assets/vendors/flot.curvedlines/curvedLines.js"></script>
     <!-- DateJS -->
     <script src="<?php echo base_url();?>assets/vendors/DateJS/build/date.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="<?php echo base_url();?>assets/vendors/moment/min/moment.min.js"></script>
+   <!-- bootstrap-daterangepicker -->
+   <script src="<?php echo base_url();?>assets/vendors/moment/min/moment.min.js"></script>
     <script src="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
+    <!-- bootstrap-datetimepicker -->    
+    <script src="<?php echo base_url();?>assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- jQuery Knob -->
+    <script src="<?php echo base_url();?>assets/vendors/jquery-knob/dist/jquery.knob.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url();?>assets/build/js/custom.js"></script>
     
@@ -395,10 +460,11 @@
             var url = "<?=base_url('get-data-monitoring');?>";
             $.get(url, function( data ) {
                 var val = JSON.parse(data);
-                $('#nilai-suhu').text(val.suhu_sementara+"°C");
-                $('#nilai-kelembaban').text(+val.kelembapan_sementara+"%");
+                $('#nilai-suhu').text(val.suhu+"°C");
+                $('#nilai-kelembaban').text(+val.lembab+"%");
                 $('#nilai-bb').text(val.bb+" Kg");
                 $('#nilai-bb2').text(val.bb+" Kg");
+                $('#nilai-waktu').text(val.waktu);
                 
             }); 
             // console.log(url);
@@ -408,7 +474,7 @@
 
   <!-- /java script bset chart kelembapan -->
     <script>
-    var value = <?php echo $nilai->kelembapan_sementara; ?>;
+    var value = <?php echo $nilai->lembab; ?>;
       $("#chart").attr("data-percent", value.toString());
      </script>
 
@@ -420,7 +486,7 @@
           data: {
             labels: <?php echo json_encode($waktu);?>,
             datasets: [{
-            label: "Sensor Suhu Inkubator 1",
+            label: "Suhu Inkubator dalam waktu 4 detik (°C)",
             backgroundColor: "rgba(38, 185, 154, 0.31)",
             borderColor: "rgba(38, 185, 154, 0.7)",
             pointBorderColor: "rgba(38, 185, 154, 0.7)",
@@ -434,14 +500,17 @@
           },
           });
       </script>
+
+      
       <script>
        var ctx = document.getElementById("mybarChart2");
 			  var mybarChart = new Chart(ctx, {
 				type: 'bar',
 				data: {
-				  labels: <?php echo json_encode($waktu2);?>,
+				  labels:
+           <?php echo json_encode($waktu);?>,
 				  datasets: [{
-					label: 'Berat Badan Bayi Inkubator 1',
+					label: 'Berat Badan (*Kg)',
 					backgroundColor: "#26B99A",
 					data: <?php echo json_encode($bb);?>
 				  },]
@@ -458,6 +527,71 @@
 				}
 			  });
       </script>
+<!-- js untuk sorting tgl di suhu -->
+<script>
+    var val;
+    var update;
+          $('#myDatepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            useCurrent : true
+          }).on('dp.change', function(e){
+            update = e;
+            updatechart();
+          });
+
+          $(document).ready(function(){
+          setInterval(function(){ 
+            updatechart();
+          }, 15000);
+          
+      });
+      function updatechart() {
+          if(update==null)return;
+          console.log("updatesuhu");
+            var tanggal = update.date.format('YYYY-MM-DD');
+            var url = "<?=base_url('get-data-suhu');?>/"+tanggal;
+            $.get(url, function( data ) {
+                val = JSON.parse(data);
+                lineChart2.data.datasets[0].data = val.map(x => parseFloat(x.Suhu));
+                lineChart2.data.labels = val.map(x => x.waktu);
+                lineChart2.update();
+                
+            });
+          }
+      </script>
+
+    <!-- js untuk sorting tgl di berat -->
+      <script>
+         var val;
+         var update2;
+         $('#myDatepicker2').datetimepicker({
+            format: 'YYYY-MM-DD'
+          }).on('dp.change', function(l){
+            update2 = l;
+            updatechart2();
+          });
+          $(document).ready(function(){
+          setInterval(function(){ 
+            updatechart2();
+          }, 15000);
+          
+      });
+      function updatechart2(){
+        if(update2==null)return;
+        console.log("updatebb");
+            var tanggal = update2.date.format('YYYY-MM-DD');
+            var url = "<?=base_url('get-data-bb');?>/"+tanggal;
+            $.get(url, function( data ) {
+                val = JSON.parse(data);
+                mybarChart.data.datasets[0].data = val.map(x => parseFloat(x.bb));
+                mybarChart.data.labels = val.map(x => x.waktu);
+                mybarChart.update();
+                
+            }); 
+          }
+          
+      </script>
+
 
      
      
