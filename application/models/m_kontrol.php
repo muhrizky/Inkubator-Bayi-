@@ -17,7 +17,14 @@ class M_kontrol extends CI_Model{
 	}
 	function tampil_tabel_kontrol(){
         return $this->db->get('pastibisa2');
-    }
+	}
+	function notifikasi_setpoint($svsuhu, $svkelembapan, $data)
+	{
+		$this->db->select('suhu');
+		$this->db->select('nilai');
+
+		
+	}
 
     
 

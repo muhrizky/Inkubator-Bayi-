@@ -15,7 +15,23 @@ class M_data extends CI_Model{
         
         $query = $this->db->query("SELECT TIME(waktu) as waktu,Suhu FROM babymonitoring2 WHERE waktu BETWEEN '$tgl_awal' AND '$tgl_akhir'");// SUM(suhu_sementara)
         return $query->result();
-    }           
+    } 
+    function ambiladmin($id){
+        $this->db->from('admin');
+        $this->db->where('admin.id', $id);
+        $data = $this->db->get();
+        return $data->result();
+
+    }
+    // public function getadminid($id)
+	// {
+	// 	$this->db->from('admin');
+	// 	$this->db->join('level', 'admin.jabatan = level.id_level', "LEFT");
+	// 	$this->db->where('admin.id', $id);
+	// 	$data = $this->db->get();
+		
+	// 	return $data->result();
+	// }      
      
     
 

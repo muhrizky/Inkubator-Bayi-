@@ -70,6 +70,7 @@ class Kontrol extends MY_Controller {
 		redirect('kontrol'); 
 
 	}
+	
 
 	
 

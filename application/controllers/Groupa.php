@@ -30,6 +30,13 @@ class Groupa extends MY_Controller {
         $this->load->view('v_groupa',$database);
 	}
 	public function tambah_group(){
+		$this->form_validation->set_rules('level', 'level', 'required|is_unique[level.level]',array('required' => 'level harus ada','is_unique' => 'nama level tidak boleh sama' ));
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('notif','<div class="alert alert-danger" role="alert"> nama level sudah dibuat, gunakan nama level lain <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+			redirect('groupa','refresh');
+			
+		}
 		$data = array(
 			'level' => $this->input->post('level')
 		);
@@ -38,6 +45,13 @@ class Groupa extends MY_Controller {
 		redirect('groupa');
 	}
 	public function ubah_group(){
+		$this->form_validation->set_rules('level', 'level', 'required|is_unique[level.level]',array('required' => 'level harus ada','is_unique' => 'nama level tidak boleh sama' ));
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('notif','<div class="alert alert-danger" role="alert"> nama level sudah dibuat, gunakan nama level lain <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+			redirect('groupa','refresh');
+			
+		}
 		$database['level'] = $this->input->post('level');
 		$id = $this->input->post('id_level');
 		

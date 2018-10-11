@@ -23,6 +23,7 @@ class Login extends MY_Controller {
 			);
 
 		$a = $this->m_login->cek_login("admin",$where)->result();
+		$nama_l = $this->m_login->cek_login("admin", $where)->result();
 		$cek = $this->m_login->cek_login("admin",$where)->num_rows();
 		$result = $this->m_login->getjabatan($User_Name,$Password);
 		
@@ -32,13 +33,14 @@ class Login extends MY_Controller {
 
 			$data_session = array(
 				'nama' => $User_Name,
+				'nama_lengkap' => $nama_l[0]->nama_lengkap,
 				'jabatan' =>$result[0]->level,
 				'id' => $a[0]->id,
 				'status' => "login"
 				);
 
 			$this->session->set_userdata($data_session);
-
+			$this->session->set_flashdata('Welcome','<div class="alert alert-success" role="alert"> Selamat datang di Portal Sistem Pengendali Inkubator Bayi Laboratorium Teknik Kontrol Otomat Departemen Teknik Elektro Universitas Diponegoro <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
 			redirect(base_url("beranda")); //dahulu ("login")
 
 		}else{

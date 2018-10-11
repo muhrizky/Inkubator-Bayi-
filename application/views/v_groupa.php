@@ -69,6 +69,7 @@
                         <li><a href="<?php echo base_url();?>lista">List Admin</a>
                         
                         <li><a href="<?php echo base_url();?>groupa">Group Admin</a>
+                        <li><a href="<?php echo base_url();?>inkubator">List Inkubator</a>
                         <p> </p>
                         </li>
                     </ul>
@@ -195,14 +196,14 @@
                                 data-level="<?php echo $lv->level ?>"
                                 data-toggle="modal" data-target="#edit-data">
 
-                                <a data-toggle="modal" data-target="#modalupdate<?php echo $lv->id_level ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update </a>
+                                <a data-toggle="modal" data-target="#modalupdate<?php echo $lv->id_level ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Ubah </a>
                                 </a>
-                                <a data-toggle="modal" data-target="#modaldelete<?php echo $lv->id_level ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                <a data-toggle="modal" data-target="#modaldelete<?php echo $lv->id_level ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Hapus </a>
                                 </td>
                                 <!-- modal Tambah  Groupa Admin-->
                                
-                                <div class="modal fade bs-example-modal-lg" id="modaladd" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
+                                <div class="modal fade bs-example-modal-sm" id="modaladd" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
                                       <div class="modal-content">
 
                                         <div class="modal-header">
@@ -213,15 +214,15 @@
                                         <form class="form-horizontal" action="<?php echo base_url('groupa/tambah_group')?>" method="post" enctype="multipart/form-data" role="form">
                                         <div class="modal-body">
                                         <div class="item form-group">
-                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Group Name<span class="required">*</span>
+                                          <label class="control-label col-md-12 col-sm-6 col-xs-12" for="name">Group Name<span class="required">*</span>
                                           </label>
-                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <div class="col-md-12 col-sm-6 col-xs-12">
                                             <input id="level" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="level" placeholder="Isikan Level/Group dari admin" required="required" type="text">
                                           </div>
                                         </div>
                                           <br />
                                           <br />
-
+                                          <br />
                                         </div>
                                         
                                         <div class="modal-footer">
@@ -235,28 +236,28 @@
                                 <!-- end modal Tambah  -->
                                 <!-- modal Edit-->
                                 <?php foreach($level as $lv){ ?>
-                                 <div class="modal fade bs-example-modal-lg" id="modalupdate<?php echo $lv->id_level ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
+                                 <div class="modal fade bs-example-modal-sm" id="modalupdate<?php echo $lv->id_level ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
                                       <div class="modal-content">
 
                                         <div class="modal-header">
                                           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                           </button>
-                                          <h4 class="modal-title" id="myModalLabel">Update Data</h4>
+                                          <h4 class="modal-title" id="myModalLabel">UbahData</h4>
                                         </div>
                                         <form class="form-horizontal" action="<?php echo base_url('groupa/ubah_group')?>" method="post" enctype="multipart/form-data" role="form">
                                         <div class="modal-body">
                                         <div class="item form-group">
-                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Group Name<span class="required">*</span>
+                                          <label class="control-label col-md-12 col-sm-6 col-xs-12" for="name">Group Name<span class="required">*</span>
                                           </label>
-                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <div class="col-md-12 col-sm-6 col-xs-12">
                                             <input type="hidden" id="id_level" name="id_level" value="<?php echo $lv->id_level ?>">
                                             <input value="<?php echo $lv->level ?>" id="level" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="level" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
                                           </div>
                                         </div>
                                           <br />
                                           <br />
-
+                                          <br />
                                         </div>
                                         
                                         <div class="modal-footer">

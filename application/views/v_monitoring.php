@@ -63,6 +63,7 @@
                         <li><a href="<?php echo base_url();?>lista">List Admin</a>
                         
                         <li><a href="<?php echo base_url();?>groupa">Group Admin</a>
+                        <li><a href="<?php echo base_url();?>inkubator">List Inkubator</a>
                         <p> </p>
                         </li>
                     </ul>
@@ -182,7 +183,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h3><b>Monitoring Inkubator</b></h3>*Periode data masuk terahir : <b id ="nilai-waktu"></b>
+                    <h3><b>Monitoring Inkubator</b></h3>*Periode data masuk terakhir : <b id ="nilai-waktu"></b>
                     
                     <div class="clearfix"></div>
                   </div>
@@ -273,7 +274,7 @@
                   if (count($database) > 0) {
                       foreach($database as $database){
                           $waktu[] = $database->waktu;
-                          $suhu[] = (float) $database->Suhu;
+                          $suhu[] = (float) $database->suhu;
                       }
                     }
                     else {
@@ -462,8 +463,8 @@
                 var val = JSON.parse(data);
                 $('#nilai-suhu').text(val.suhu+"°C");
                 $('#nilai-kelembaban').text(+val.lembab+"%");
-                $('#nilai-bb').text(val.bb+" Kg");
-                $('#nilai-bb2').text(val.bb+" Kg");
+                $('#nilai-bb').text(val.bb+" gram");
+                $('#nilai-bb2').text(val.bb+" gram");
                 $('#nilai-waktu').text(val.waktu);
                 
             }); 
@@ -486,7 +487,7 @@
           data: {
             labels: <?php echo json_encode($waktu);?>,
             datasets: [{
-            label: "Suhu Inkubator dalam waktu 4 detik (°C)",
+            label: "Suhu Inkubator dalam modulo 3 menit (°C)",
             backgroundColor: "rgba(38, 185, 154, 0.31)",
             borderColor: "rgba(38, 185, 154, 0.7)",
             pointBorderColor: "rgba(38, 185, 154, 0.7)",
@@ -510,7 +511,7 @@
 				  labels:
            <?php echo json_encode($waktu);?>,
 				  datasets: [{
-					label: 'Berat Badan (*Kg)',
+					label: 'Berat Badan dalam modulo 3 menit (*gram)',
 					backgroundColor: "#26B99A",
 					data: <?php echo json_encode($bb);?>
 				  },]
@@ -549,10 +550,10 @@
           if(update==null)return;
           console.log("updatesuhu");
             var tanggal = update.date.format('YYYY-MM-DD');
-            var url = "<?=base_url('get-data-suhu');?>/"+tanggal;
+            var url = "<?=base_url('Monitoring/getDataSuhu');?>/"+tanggal;
             $.get(url, function( data ) {
                 val = JSON.parse(data);
-                lineChart2.data.datasets[0].data = val.map(x => parseFloat(x.Suhu));
+                lineChart2.data.datasets[0].data = val.map(x => parseFloat(x.suhu));
                 lineChart2.data.labels = val.map(x => x.waktu);
                 lineChart2.update();
                 
@@ -580,7 +581,7 @@
         if(update2==null)return;
         console.log("updatebb");
             var tanggal = update2.date.format('YYYY-MM-DD');
-            var url = "<?=base_url('get-data-bb');?>/"+tanggal;
+            var url = "<?=base_url('Monitoring/getDatabb');?>/"+tanggal;
             $.get(url, function( data ) {
                 val = JSON.parse(data);
                 mybarChart.data.datasets[0].data = val.map(x => parseFloat(x.bb));

@@ -65,6 +65,7 @@
                         <li><a href="<?php echo base_url();?>lista">List Admin</a>
                         
                         <li><a href="<?php echo base_url();?>groupa">Group Admin</a>
+                        <li><a href="<?php echo base_url();?>inkubator">List Inkubator</a>
                         <p> </p>
                         </li>
                     </ul>
@@ -181,7 +182,7 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">User Name <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="User_Name" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
+                                              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="User_Name" placeholder="Username tidak memuat tanda baca titik (.)" required="required" type="text">
                                             </div>
                                           </div>
                                                 <div class="item form-group">
@@ -191,6 +192,13 @@
                                               </div>
                                             </div>
                                             <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nama Lengkap <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <input id="nama_lengkap" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="nama_lengkap" placeholder="Nama Lengkap User" required="required" type="text">
+                                            </div>
+                                          </div>
+                                            <div class="item form-group">
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Group Admin<span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -199,7 +207,6 @@
                                               <?php foreach ($getgroup as $value) {?>
                                                 <option
                                                 value="<?php echo $value->id_level?>">
-                                                <!-- <?php echo ($ad->jabatan == $value->id_level)?"selected":""?> -->
                                                 <?php echo $value->level?></option>
                                                 
                                               <?php }?>
@@ -207,7 +214,7 @@
                                             </div>
                                           </div>
                                             <div class="item form-group">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">No. Handphone <span class="required">*</span>
                                             </label>
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                               <input type="tel" id="telephone" name="no_hp" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">
@@ -240,12 +247,15 @@
                                   </div>
                                 <!-- end modal Tambah  -->
                     <?=$this->session->flashdata('notif')?>
+                    <!-- <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?> -->
+
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
                           <th>No</th>
-                          <th>User Name</th>
+                          <th>Username</th>
                           <th>Profil</th>
+                          <th>Nama Lengkap</th>
                           <th>Group</th>
                           <th>No.Hp</th>
                           <th>Alamat</th>
@@ -264,6 +274,7 @@
                               <td><?php echo $no++ ?></td>
                               <td><?php echo $ad->User_Name ?></td>
                               <td><img style="height:50px" src="./assets/production/images/<?php echo $ad->photo?>" alt="" srcset=""></td>
+                              <td><?php echo $ad->nama_lengkap ?></td>
                               <td><?php echo $ad->level ?></td>
                               <td><?php echo $ad->no_hp ?></td>
                               <td><?php echo $ad->alamat ?></td>
@@ -273,6 +284,7 @@
                                 data-id="<?php echo $ad->id ?>"
                                 data-UserName="<?php echo $ad->User_Name ?>"
                                 data-Password="<?php echo $ad->Password ?>"
+                                data-Nama_lengkap="<?php echo $ad->nama_lengkap ?>"
                                 data-jabatan="<?php echo $ad->jabatan ?>"
                                 data-nohp="<?php echo $ad->no_hp ?>"
                                 data-alamat="<?php echo $ad->alamat ?>"
@@ -302,7 +314,16 @@
                                           </label>
                                           <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="hidden" id="id" name="id" value="<?php echo $ad->id ?>">
-                                            <input id="UserName" class="form-control col-md-7 col-xs-12" value="<?php echo $ad->User_Name ?>" data-validate-length-range="6" data-validate-words="2" name="User_Name" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
+                                            <input id="UserName" class="form-control col-md-7 col-xs-12" value="<?php echo $ad->User_Name ?>" data-validate-length-range="6" data-validate-words="2" name="User_Name" placeholder="Username tidak memuat tanda baca titik (.)" required="required" type="text">
+                                          </div>
+                                        </div>
+                                          <br />
+                                          <br />
+                                          <div class="item form-group">
+                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nama Lengkap<span class="required">*</span>
+                                          </label>
+                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="nama_lengkap" class="form-control col-md-7 col-xs-12" value="<?php echo $ad->nama_lengkap ?>" data-validate-length-range="6" data-validate-words="2" name="nama_lengkap" placeholder="Nama Lengkap dari User" required="required" type="text">
                                           </div>
                                         </div>
                                           <br />
@@ -326,7 +347,7 @@
                                           <br />
                                           <br />
                                           <div class="item form-group">
-                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
+                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">No. Handphone <span class="required">*</span>
                                           </label>
                                           <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input type="tel" id="nohp" name="no_hp" value="<?php echo $ad->no_hp ?>" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">
@@ -359,7 +380,7 @@
                                         
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                          <button	 type="submit" class="btn btn-success">Save changes</button>
+                                          <button	 type="submit" class="btn btn-success">Simpan Perubahan</button>
                                         </div>
                                         </form>
                                       </div>
@@ -395,7 +416,7 @@
                                             <div class="modal-footer">
                                               <a type="button" class="btn btn-default" data-dismiss="modal" >Batal</a>
                                               
-                                              <button	 type="submit" class="btn btn-success">Save changes</button>
+                                              <button	 type="submit" class="btn btn-success">Simpan Perubahan</button>
                                             </div>
                                             </form>
                                           </div>
@@ -421,7 +442,7 @@
                                             <div class="modal-footer">
                                               <a type="button" class="btn btn-default" data-dismiss="modal" >Batal</a>
                                               
-                                              <a type="button" class="btn btn-default" <?php echo anchor('lista/hapus_admin/'.$adm->id,"Konfirmasi");?> </a>
+                                              <a type="button" class="btn btn-success" <?php echo anchor('lista/hapus_admin/'.$adm->id,"Konfirmasi");?> </a>
                                             </div>
 
                                           </div>

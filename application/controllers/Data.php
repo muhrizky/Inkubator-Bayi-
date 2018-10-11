@@ -18,6 +18,7 @@ class Data extends MY_Controller {
 		$this->load->model('m_data');
 		$namauser = $this->session->userdata('nama');
         $database['getNama'] = $this->session->userdata('nama');
+        $database['getinkubator'] = $this->m_inkubator->tampil_tabel_inkubator()->result();
         $database['getPhoto'] = $this->m_lista->get_photo($database['getNama']);
 		$tampil_tabel_sensor = $this->m_data->tampil_tabel_sensor();
 		$this->load->library('pagination');
@@ -57,32 +58,32 @@ class Data extends MY_Controller {
     }
     public function unduhdata()
     {
+        
         $waktu_awal = $this->input->get('waktu_awal');
         $waktu_akhir = $this->input->get('waktu_akhir');
+        $inkubator  = $this->input->get('inkubator');
         $this->load->database();
+        $inkubatorresult = $this->db->query("SELECT * FROM databayi JOIN datainkubator ON databayi.inkubator = datainkubator.id_inkubator WHERE databayi.inkubator = $inkubator");
         $result = $this->db->query("SELECT waktu, suhu,lembab,bb FROM babymonitoring2 WHERE waktu BETWEEN '$waktu_awal' AND '$waktu_akhir'");
         $babymonitoring2 = array(
             'waktu_awal' => 'waktu',
             'waktu_akhir' => 'waktu',
-            'babymonitoring2' => $result
+            'babymonitoring2' => $result,
+            'inkubatorresult' => $inkubatorresult,
+            'getNama' => $this->session->userdata('nama_lengkap')
+            // 'getnamalengkap' => $this->m_data->ambiladmin()->result()
         );
-        ob_start();
-        $this->load->view('v_unduhpdf',$babymonitoring2);
-        $content = ob_get_clean();
-        die ($content);
         
-        try
-        {
-            $html2pdf = new HTML2PDF('P', 'A4', 'en', false, 'UTF-8', array(10, 10, 4, 10));
-            $html2pdf->pdf->SetDisplayMode('fullpage');
-            $html2pdf->writeHTML($content);
-            $html2pdf->Output('laporan_Monitoring_inkubator_bayi.pdf');
-        }
-        catch(HTML2PDF_exception $e) {
-            echo $e;
-            exit;
-        }
+        $this->load->view('v_unduhpdf',$babymonitoring2);
+       
     }
+    // function unduhdata2()
+    // {
+    //     $id = $this->session->userdata('id');
+    //     $babymonitoring2['admin'] = $this->m_data->getadminid($id);
+    //     $babymonitoring2['getNama'] = $babymonitoring2['admin'][0]->User_Name;
+    //     $this->load->view('v_unduhpdf');
+    // }
         
     }
 	

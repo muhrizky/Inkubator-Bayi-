@@ -1,12 +1,12 @@
 <?php 
  
-class M_groupa extends CI_Model{
-    function tampil_tabel_group(){
+class M_inkubator extends CI_Model{
+    function tampil_tabel_inkubator(){
         // $this->db->where('id_level NOT IN (3)');
-        return $this->db->get('level');
+        return $this->db->get('datainkubator');
     }
     function tambah($data){
-        $this->db->insert('level',$data);
+        $this->db->insert('datainkubator',$data);
         return TRUE;
     }
     function ubah($where,$data,$table){
@@ -16,4 +16,5 @@ class M_groupa extends CI_Model{
         $this->db->where($where);
         $this->db->delete($table); // bagaimana menghalau untuk id 3 operator tidak bisa
     }
+    
 }

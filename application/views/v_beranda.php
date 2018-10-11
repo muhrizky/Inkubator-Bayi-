@@ -24,10 +24,12 @@
     <link  href="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"><!-- bootstrap-daterangepicker -->
      <!-- bootstrap-datetimepicker -->
     <link  href="<?php echo base_url();?>assets/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-    <!-- PNotify -->
-     <link href="<?php echo base_url();?>assets/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
-    <link href="<?php echo base_url();?>assets/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="<?php echo base_url();?>assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo base_url();?>assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url();?>assets/build/css/custom.min.css" rel="stylesheet">
     <!-- Custom modal dialog -->
@@ -67,8 +69,8 @@
               <li><a><i class="fa fa-users"></i> Admin<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="<?php echo base_url();?>lista">List Admin</a>
-                        
                         <li><a href="<?php echo base_url();?>groupa">Group Admin</a>
+                        <li><a href="<?php echo base_url();?>inkubator">List Inkubator</a>
                         <p> </p>
                         </li>
                     </ul>
@@ -161,214 +163,338 @@
 
           <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="dashboard_graph x_panel">
-                  
-                  <div class="x_content">
-
-                  <div class="bs-example" data-example-id="simple-jumbotron">
-                    <div class="jumbotron">
-                      <h1>Selamat Datang ! </h1>
-                      <p>Selamat datang di Portal Sistem Pengendali Inkubator Bayi Laboratorium Teknik Kontrol Otomat Departemen Teknik Elektro Universitas Diponegoro.</p>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
+                
+                  <?=$this->session->flashdata('Welcome')?>
+                
             </div>
+            
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="dashboard_graph x_panel">
+                  <div class="x_title">
+                        <h2><b>Tabel Data Bayi</b></h2>
+                        <div class="clearfix"></div>
+                  </div>
+                <div class="x_content">
+                <div class="form-group text-left">
+                <?php if($this->session->userdata('jabatan') == 'Operator'): ?>
+                  <a data-toggle="modal" data-target="#modaladd" class="btn btn-primary">Tambah Data Bayi</a>
+                  <?php endif; ?>
+		            </div>
+                <!-- modal Tambah Bayi-->
+                               
+                <div class="modal fade bs-example-modal-sm" id="modaladd" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                      <div class="modal-content">
 
-               <!-- <div class="modal fade bs-example-modal-lg" id="modalupdate" tabindex="-1" role="dialog" aria-hidden="true">
-                  <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">Update Data</h4>
-                      </div>
-                      <form class="form-horizontal" action="<?php echo base_url('lista/ubah_admin')?>" method="post" enctype="multipart/form-data" role="form">
-                        <div class="modal-body">
-                          <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">User Name <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="hidden" id="id" name="id" value="<?php echo $admin[0]->id ?>">
-                              <input type="hidden" id="jabatan" name="jabatan" value="<?php echo $admin[0]->jabatan ?>">
-                              <input id="UserName" class="form-control col-md-7 col-xs-12" value="<?php echo $admin[0]->User_Name ?>" data-validate-length-range="6" data-validate-words="2" name="User_Name" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
-                            </div>
-                          </div>
-                         
-                          <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">Telephone <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="tel" id="nohp" name="no_hp" value="<?php echo $admin[0]->no_hp ?>" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">
-                            </div>
-                          </div>
-                         
-                          <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Alamat<span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="alamat" required="required" name="alamat" value="<?php echo $admin[0]->alamat ?>" class="form-control col-md-7 col-xs-12">
-                            </div>
-                          </div>
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                          </button>
+                                          <h4 class="modal-title" id="myModalLabel">Tambah Data Bayi</h4>
+                                        </div>
+                                        <form class="form-horizontal" action="<?php echo base_url('beranda/tambah_bayi')?>" method="post" enctype="multipart/form-data" role="form">
+                                          <div class="modal-body">
+                                          <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nama Bayi <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="namabayi" placeholder="Username tidak memuat tanda baca titik (.)" required="required" type="text">
+                                            </div>
+                                          </div>
+                                                <div class="item form-group">
+                                              <label for="gender" class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Kelamin<span class="required" name="jenis_kelamin">*</span></label>
+                                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <select name="jenis_kelamin" class="form-control col-md-7 col-xs-12" class="required">
+                                                <option>Laki-Laki</option>
+                                                <option>Perempuan</option>
+                                              </select>
+                                              </div>
+                                            </div>
+                                            <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Waktu Lahir<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div name="tanggallahir" class='input-group date' id='myDatepicker'>
+                                                <input name="tanggallahir" required="required" type='text' class="form-control" class="jsDate" />
+                                                <span class="input-group-addon" >
+                                                  <span class="glyphicon glyphicon-calendar">
+                                            </div>
+                                            </div>
+                                            </div>
+                                            
+                                            <div class="item form-group">
+                                              <label for="gender" class="control-label col-md-3 col-sm-3 col-xs-12">Persalinan<span class="required">*</span></label>
+                                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <select name="persalinan" class="form-control col-md-7 col-xs-12" class="required">
+                                                <option>Normal</option>
+                                                <option>Caesar</option>
+                                              </select>
+                                              </div>
+                                            </div>
+                                            <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inkubator<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="inkubator" class="form-control" class="required">
+                                            <?php foreach ($getinkubator as $value) {?>
+                                                <option
+                                                value="<?php echo $value->id_inkubator?>">
+                                                <?php echo $value->nama_inkubator?></option>
+                                                
+                                              <?php }?>
+                                              </select>
+                                            </div>
+                                          </div>
+                                            <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" >Nama Orang Tua<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="namaorangtua" required="required" type="text">
+                                            </div>
+                                          </div>
+                                            <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Alamat<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <textarea id="textarea" required="required" name="alamat" class="form-control col-md-7 col-xs-12"></textarea>
+                                            </div>
+                                            </div>
+                                            <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Foto<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <input type="file" name="userfile" size="20" /> <small>Maximumum Upload Foto Size:2 MB<br />Maximumum Dimmension Foto 1024x728 </small>
+                                            </div>
+                                            
+                                          </div>
+                                          </div>
+                                          
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                            <button  type="submit" class="btn btn-success">Simpan</button>
+                                          </div>
+                                          </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <!-- end modal Tambah  -->
+                    <?=$this->session->flashdata('notif')?>
+                    <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Profil</th>
+                          <th>Nama Bayi</th>
+                          <th>Jenis Kelamin</th>
+                          <th>Tanggal Lahir</th>
+                          <th>Persalinan</th>
+                          <th>Inkubator</th>
+                          <th>Nama Orang Tua</th>
+                          <th>Alamat</th>
+                          <th>Aksi</th>
                           
-                        </div>
+                          
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $no = 1;
+                            foreach($databayi as $db){ 
+                            ?>
                             
-                        <div class="modal-footer">
-                        <?php $this->session->set_flashdata('redirect', base_url('beranda'))?>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button	 type="submit" class="btn btn-success">Save changes</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div> -->
-              <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="x_panel fixed_height_320">
-                  <div class="x_title">
-                    <h2><b>Profile Admin</b></h2>
-                    <!-- <ul class="nav navbar-right panel_toolbox">
-                      <li class="pull-right">
-                        <a data-toggle="modal" data-target="#modalupdate" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      </li>
-                    </ul> -->
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                  
-                    <div class="center col-xs-7">
-                      <h2><?php echo $getNama?></h2>
-                      <p><strong>About: </strong><?php echo $admin[0]->level ?></p>
-                        <ul class="list-unstyled">
-                          <li><i class="fa fa-building"><strong> Alamat: </strong></i> <?php echo $admin[0]->alamat ?>  </li>
-                          <li><i class="fa fa-phone"><strong> No.Hp : </strong></i> <?php echo $admin[0]->no_hp?></li>
-                        </ul>
-                      </div>
-                      <div class="right col-xs-5 text-center">
-                        <img src="<?php echo base_url();?>assets/production/images/<?php echo $getPhoto?>" alt="User Image" class="img-circle img-responsive">
-                      </div>
-                    </div>
-                    <div class="col-xs-12 bottom text-center">
+                            <tr>
+                              <td><?php echo $no++ ?></td>
+                              <td><img style="height:50px" src="./assets/production/images/<?php echo $db->photo?>" alt="" srcset=""></td>
+                              <td><?php echo $db->namabayi ?></td>
+                              <td><?php echo $db->jenis_kelamin ?></td>
+                              <td><?php echo $db->tanggallahir ?></td>
+                              <td><?php echo $db->persalinan ?></td>
+                              <td><?php echo $db->nama_inkubator ?></td>
+                              <td><?php echo $db->namaorangtua ?></td>
+                              <td><?php echo $db->alamat ?></td>
+                              <td>
+                                <a 
+                                href="javascript:;"
+                                data-id="<?php echo $db->id_bayi ?>"
+                                data-namabayi="<?php echo $db->namabayi ?>"
+                                data-jenis_kelamin="<?php echo $db->jenis_kelamin ?>"
+                                data-tanggallahir="<?php echo $db->tanggallahir ?>"
+                                data-persalinan="<?php echo $db->persalinan ?>"
+                                data-inkubator="<?php echo $db->inkubator ?>"
+                                data-namaorangtua="<?php echo $db->namaorangtua ?>"
+                                data-alamat="<?php echo $db->alamat ?>"
+                                data-toggle="modal" data-target="#edit-data">
+                                <a href="<?php echo base_url();?>monitoring" class="btn btn-info btn-xs"><i class="fa fa-bar-chart-o"></i> Monitoring </a>
+                                <a href="<?php echo base_url();?>data" class="btn btn-info btn-xs"><i class="fa fa-file"></i> Data </a>
+                                <?php if($this->session->userdata('jabatan') == 'Operator'): ?>
+                                <a href="<?php echo base_url();?>kontrol" class="btn btn-info btn-xs"><i class="fa fa-wrench"></i> Kontrol </a>
+                                <a data-toggle="modal" data-target="#modalupdate<?php echo $db->id_bayi ?>" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Ubah </a>
+                                <a data-toggle="modal" data-target="#modaldelete<?php echo $db->id_bayi ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Hapus </a>
+                                <?php endif; ?>
+                              </td>
+                              
+                               <!-- modal Edit bayi-->
+                               <?php foreach($databayi as $db){ ?>
+                                <div class="modal fade bs-example-modal-sm" id="modalupdate<?php echo $db->id_bayi ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                      <div class="modal-content">
+
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                          </button>
+                                          <h4 class="modal-title" id="myModalLabel">Update Data Bayi</h4>
+                                        </div>
+                                        <form class="form-horizontal" action="<?php echo base_url('beranda/ubah_bayi')?>" method="post" enctype="multipart/form-data" role="form">
+                                          <div class="modal-body">
+                                          <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nama Bayi <span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <input type="hidden" id="id_bayi" name="id_bayi" value="<?php echo $db->id_bayi ?>">
+                                              <input id="name" class="form-control col-md-7 col-xs-12" value="<?php echo $db->namabayi ?>" data-validate-length-range="6" data-validate-words="2" name="namabayi" placeholder="Username tidak memuat tanda baca titik (.)" required="required" type="text">
+                                            </div>
+                                          </div>
+                                          <br />
+                                            <br />
+                                                <div class="item form-group">
+                                              <label for="gender" class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Kelamin<span class="required" name="jenis_kelamin">*</span></label>
+                                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <select required="required" name="jenis_kelamin" class="form-control col-md-7 col-xs-12" value="<?php echo $db->jenis_kelamin ?>" class="required">
+                                                <option></option>
+                                                <option>Laki-Laki</option>
+                                                <option>Perempuan</option>
+                                              </select>
+                                              </div>
+                                            </div>
+                                            <br />
+                                          <br />
+                                            <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Waktu Lahir<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div name="tanggallahir" class='input-group date myDatepicker2' id='myDatepicker2'>
+                                                <input  name="tanggallahir" required="required" value="<?php echo $db->tanggallahir ?>" type='text' class="form-control" class="jsDate" />
+                                                <span class="input-group-addon" >
+                                                  <span class="glyphicon glyphicon-calendar">
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <br />
+                                            <br />
+
+                                            <div class="item form-group">
+                                              <label for="gender" class="control-label col-md-3 col-sm-3 col-xs-12">Persalinan<span class="required">*</span></label>
+                                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <select  required="required" name="persalinan" class="form-control col-md-7 col-xs-12" value="<?php echo $db->persalinan ?>" class="required">
+                                                <option></option>
+                                                <option>Normal</option>
+                                                <option>Caesar</option>
+                                              </select>
+                                              </div>
+                                            </div>
+                                            <br />
+                                          <br />
+                                            <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Inkubator<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="inkubator" class="form-control" class="required">
+                                            <?php foreach ($getinkubator as $value) {?>
+                                                <option
+                                                value="<?php echo $value->id_inkubator?>"
+                                                <?php echo ($db->inkubator == $value->id_inkubator)?"selected":""?>>
+                                                <?php echo $value->nama_inkubator?></option>
+                                                
+                                              <?php }?>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          <br />
+                                          <br />
+                                            <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" >Nama Orang Tua<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <input id="name" value="<?php echo $db->namaorangtua ?>" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="namaorangtua" required="required" type="text">
+                                            </div>
+                                          </div>
+                                          <br />
+                                          <br />
+                                            <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="textarea">Alamat<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <input id="alamat" value="<?php echo $db->alamat ?>" required="required" name="alamat" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                            </div>
+                                            <br />
+                                          <br />
+                                            <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Foto<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                              <input type="file" name="userfile" size="20" /> <small>Maximumum Upload Foto Size:2 MB<br />Maximumum Dimmension Foto 1024x728 </small>
+                                            </div>
+                                            <br />
+                                            <br />
+                                          <br />
+                                          </div>
+                                          <br />
+                                          <br />
+                                          </div>
+                                          
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                            <button  type="submit" class="btn btn-success">Simpan</button>
+                                          </div>
+                                          </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <?php }?>
+                              
+                                 <!-- modal hapus -->
+                                 <?php foreach($databayi as $db){ ?>
+                                  <div class="modal fade"  id="modaldelete<?php echo $db->id_bayi ?>" role="dialog" >
+                                        <div class="modal-dialog modal-sm">
+                                          <div class="modal-content">
+
+                                            <div class="modal-header">
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                              </button>
+                                              <h4 class="modal-title" id="myModalLabel2">Apakah anda yakin untuk menghapus</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                            
+                                              <p>Anda akan menghapus data ini, tekan 'Batal' untuk kembali ke halaman atau 'Konfirmasi' untuk keluar.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <a type="button" class="btn btn-default" data-dismiss="modal" >Batal</a>
+                                              
+                                              <a type="button" class="btn btn-success" <?php echo anchor('beranda/hapus_bayi/'.$db->id_bayi,"Konfirmasi");?> </a>
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <?php }?>
+                                  <!-- end modal hpaus -->
+                        
+                            </tr>
                             
-                      <div class="col-xs-12 col-sm-6 emphasis">
-                            
+                            <?php } ?>
+                            </tbody>
+                            </tr>
+                            </table>
+
                       </div>
                     </div>
                   </div>
                 </div>
-                  
 
-              <div class="col-md-4 col-sm-12 col-xs-12">
-                <div class="x_panel fixed_height_320">
-                  <div class="x_title">
-                    <h2><b>Monitoring Inkubator</b></h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <div class="col-md-6 col-sm-6 col-xs-6"> 
-                      <h1><span class="img-circle img-responsive text-center"><i class="fa fa-calendar"></i></span></h1>
-                      <h4 class="text-center" id="nilai-waktu"></h4>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6"> 
-                      <h1><span class="img-circle img-responsive text-center"><i class="fa fa-child"></i></span></h1>
-                      <h4 class="text-center" id="nilai-bb"></h4>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6"> 
-                      <h1><span class="img-circle img-responsive text-center"><i class="fa fa-tint"></i></span></h1>
-                      <h4 class="text-center" id="nilai-kelembaban"></h4>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6"> 
-                      <h1><span class="img-circle img-responsive text-center"><i class="fa fa-cc"></i></span></h1>
-                      <h4 class="text-center" id="nilai-suhu"></h4>
-                    </div>
-                    
-                    
-                    
-                    
-
-                  </div>
-                </div>
-              </div>
-
-              
-              <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="x_panel fixed_height_320">
-                  <div class="x_title">
-                  <h2><b>Data Inkubator</b></h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                  <div style="text-align: center; margin-bottom: 17px; margin-top: 17px">
-                  <a href="<?php echo base_url();?>data"><span class="btn btn-app"> <i class="fa fa-file"> </i> Data </span> </a>
-                            </div>
-
-                            <h2 class="name_title">Data Inkubator</h2>
-                            <div class="divider"> </div>
-                            <p>Menu data inkubator ini digunakan untuk melihat data dari sensor yang digunakan. Memungkinkan juga untuk mengunduhnya sesuai dengan tanggal yang diplih</p>
-
-                            
-                        </div>
-                      </div>
-                  </div>
-              
-              
-              <div class="col-md-12 col-sm-6 col-xs-12">
-                <div class="dashboard_graph x_panel">
-                  <div class="row x_title">
-                  <div class="col-md-10 col-sm-12 col-xs-12">
-                      <h3><b>Sensor Suhu</b><br /></h3><small>*Pilih tangggal terlebih dahulu</small>
-                    </div>
-                    <div class="col-sm-2">
-                    <div class="form-group">
-                        <div class='input-group date' id='myDatepicker2'>
-                            <input type='text' class="form-control" id="tanggal"/>
-                            <span class="input-group-addon">
-                               <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                    </div>
-                    
-                  </div>
-                  <div class="x_content">
-                  <canvas id="lineChart2"></canvas>
-                  <?php
-                    if(count($database) > 0){
-                      foreach($database as $database){
-                          $waktu[] = $database->waktu;
-                          $suhu[] = (float) $database->Suhu;
-                      }
-                    }
-                    else{
-                      $waktu[] = '';
-                      $suhu[] = 0;
-                    }
-                  ?>
-
-                    <div class="x_content">
-                  <h2><b>Grafik Data Suhu</b></h2>
-                    <div>
-                      <div class="starrr stars"></div>
-                      <h4>Grafik ini menunjukan aktifitas suhu bayi terhadap waktu pada inkubator bayi berdasarkan tanggal yang dipilih.</h4>
-                    </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-
-             
-
 
 
             
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <!-- /page content -->
@@ -423,104 +549,42 @@
     <script src="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap-datetimepicker -->    
     <script src="<?php echo base_url();?>assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-    <!-- PNotify -->
-    <script src="<?php echo base_url();?>assets/vendors/pnotify/dist/pnotify.js"></script>
-    <script src="<?php echo base_url();?>assets/vendors/pnotify/dist/pnotify.buttons.js"></script>
-    <script src="<?php echo base_url();?>assets/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+     <!-- Datatables -->
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/jszip/dist/jszip.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="<?php echo base_url();?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url();?>assets/build/js/custom.min.js"></script>
     
-    
 
-    <script>
-      $(document).ready(function(){
-          setInterval(function(){ 
-            var url = "<?=base_url('get-data-monitoring');?>";
-            $.get(url, function( data ) { 
-                var val = JSON.parse(data);
-                $('#nilai-waktu').text(val.waktu);
-                $('#nilai-suhu').text("Suhu: "+val.suhu+"°C"); // table lain : val.suhu_sementara
-                $('#nilai-kelembaban').text("Kelembaban: "+val.lembab+"%"); // table lain : val.kelembapan_semetara
-                $('#nilai-bb').text("Berat Badan: "+val.bb+" Kg");
-                
-                
-            }); 
-            // console.log(url);
-          }, 500);
+     <script>
+      $('#myDatepicker').datetimepicker({
+        format: 'DD MMMM YYYY HH:mm:ss'
       });
-
       </script>
-     
-     
-     <script>  
-          var ctx = document.getElementById("lineChart2",);
-          var lineChart2 = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: <?php echo json_encode($waktu);?>,
-            datasets: [{
-            label: "Suhu Inkubator dalam waktu 4 detik (°C)",
-            backgroundColor: "rgba(38, 185, 154, 0.31)",
-            borderColor: "rgba(38, 185, 154, 0.7)",
-            pointBorderColor: "rgba(38, 185, 154, 0.7)",
-            pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
-            pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(220,220,220,1)",
-            pointBorderWidth: 1,
-            data: <?php echo json_encode($suhu);?>
-            
-            
-            },]
-          },
-          });
+
+      <script>
+      $('.myDatepicker2').datetimepicker({
+        format: 'DD MMMM YYYY HH:mm:ss'
+      });
       </script>
       <script>
-      $(document).ready(function (){
-        $('.ui-pnotify').remove();
-        
-        // $('#modallogout').on('shown.bs.modal', function(){
-        //   console.log('modal open');
-        //     $('.modal-backdrop').css("z-index", "1000 !important");
-        // });
-
-      });
-    </script>
-    <script>
-    var val;
-    var update;
-          $('#myDatepicker2').datetimepicker({
-            format: 'YYYY-MM-DD',
-            // useCurrent : true
-          }).on('dp.change', function(e){
-            update = e;
-            updatechart();
-          });
-
-          $(document).ready(function(){
-          setInterval(function(){ 
-            updatechart();
-          }, 600);
-          
-      });
-      function updatechart() {
-          if(update==null)return;
-          console.log("updatesuhu");
-            var tanggal = update.date.format('YYYY-MM-DD');
-            var url = "<?=base_url('get-data-suhu');?>/"+tanggal;
-            $.ajax({
-              url: url,
-              cache: true,
-              method:'GET',
-              success: function(data) {
-                val = JSON.parse(data);
-                lineChart2.data.datasets[0].data = val.map(x => parseFloat(x.Suhu));
-                lineChart2.data.labels = val.map(x => x.waktu);
-                lineChart2.update();
-                
-            }
-          });
-      }
+       
       </script>
+
+
 
       
 

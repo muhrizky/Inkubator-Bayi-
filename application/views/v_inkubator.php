@@ -16,18 +16,13 @@
     <link href="<?php echo base_url();?>assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="<?php echo base_url();?>assets/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="<?php echo base_url();?>assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="<?php echo base_url();?>assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-     <!-- bootstrap-daterangepicker -->
-     <link  href="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-    <!-- bootstrap-datetimepicker -->
-    <link  href="<?php echo base_url();?>assets/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
-    <!-- Datatables -->
-    <link href="<?php echo base_url();?>assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    
+     <!-- Datatables -->
+     <link href="<?php echo base_url();?>assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
@@ -37,6 +32,7 @@
      <!-- Custom modal dialog -->
      <link rel="stylesheet" href="<?php echo base_url('assets/custome/style.css'); ?>">
   </head>
+  
 
   <body class="nav-md">
     <div class="container body">
@@ -80,32 +76,26 @@
                   </li>
                   <?php endif; ?>
                   </ul>
+                  
                   <h3>General</h3>
                   <p> </p>
                 <ul class="nav side-menu">
                   <li><a href="<?php echo base_url();?>beranda">
                   <i class="fa fa-home"></i> Beranda </a>
                   </li>
+
                   <li><a href="<?php echo base_url();?>monitoring">
                   <i class="fa fa-bar-chart-o"></i> Monitoring </a>
-                  </li>
                     
-                   <!--  Tab layout monitoring
-                  li><a href="?php echo base_url();?>monitoring">
-                  <i class="fa fa-bar-chart-o"></i> Monitoring </a>
-                   --> 
-                   
-                   <?php if($this->session->userdata('jabatan') == 'Operator'): ?>
-                    <li><a href="<?php echo base_url();?>kontrol">
-                    <i class="fa fa-wrench"></i> Kontrol </a></li>
-                    </li>
+                    <?php if($this->session->userdata('jabatan') == 'Operator'): ?>
+                        <li><a href="<?php echo base_url();?>kontrol">
+                        <i class="fa fa-wrench"></i> Kontrol </a></li>
+                        </li>
                     <?php endif; ?>
                     
-                  </li>
                   <li><a href="<?php echo base_url();?>data">
                   <i class="fa fa-file"></i> Data </a>
-                    
-                  </li>
+
                   <li><a data-toggle="modal" data-target="#modallogout">
                   <i class="fa fa-power-off"></i>Lagout </a>
                   
@@ -163,135 +153,163 @@
         <div class="right_col" role="main">
           <div class="">
           <div class="row">
-            
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                  <div class="dashboard_graph x_panel">
-                    
-                    <div class="x_content">
-                      <div class="col-md-10 col-sm-12 col-xs-12">
-
-                        <div class="col-md-12 col-sm-11 col-xs-11">  
-                          <h1><span class="img-circle img-responsive"><i class="fa fa-file"></i> <b>Data Inkubator<b> </span> </h1>
-                          <h2>Menu data inkubator ini digunakan untuk melihat data dari sensor yang digunakan. Memungkinkan juga untuk mengunduhnya sesuai dengan tanggal dan waktu yang diplih</h2>
-                        </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-              <div class="x_context">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="dashboard_graph x_panel">
                   <div class="x_title">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <h2><b>Tabel Inkubator</b></h2>
-                    </div>
-                  <div class="clearfix"></div>
+                        <h2><b>List Inkubator</b></h2>
+                        
+                        <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
-                    <table  class="table table-striped table-bordered">
+                <div class="x_content">
+                <div class="form-group text-left">
+                  <a data-toggle="modal" data-target="#modaladd" class="btn btn-primary"> Tambah Inkubator </a>
+		            </div>
+                    <?=$this->session->flashdata('notif')?>
+                    <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
                           <th>No</th>
-                          <th>Waktu</th>
-                          <th>Suhu</th>
-                          <th>Kelembapan</th>
-                          <th>Berat Badan</th>
+                          <th>Nama Inkubator</th>
+                          <th>Action</th>
+                          
+                         
+
                           
                         </tr>
                         </thead>
-                        <tbody id = "tabeldata">
+                        <tbody>
                             <?php 
-                            $no = $this->uri->segment('4')+ 1;
-                            foreach($babymonitoring2 as $bm){ 
+                            $no = 1;
+                            foreach($datainkubator as $di){ 
                             ?>
-                            
                             <tr>
                               <td><?php echo $no++ ?></td>
-                              <td><?php echo $bm->waktu ?></td>
-                              <td><?php echo $bm->suhu ?>°C</td>
-                              <td><?php echo $bm->lembab ?>%</td>
-                              <td><?php echo $bm->bb ?> gram</td>
-                              
+                              <td><?php echo $di->nama_inkubator ?></td>
+                                <td>
+                                <a 
+                                href="javascript:;"
+                                data-idinkubator="<?php echo $di->id_inkubator ?>"
+                                data-inkubator="<?php echo $di->nama_inkubator ?>"
+                                
+                                data-toggle="modal" data-target="#edit-data">
+                                <a data-toggle="modal" data-target="#modalupdate<?php echo $di->id_inkubator ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update </a>
+                                </a>
+                                <a data-toggle="modal" data-target="#modaldelete<?php echo $di->id_inkubator ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                                </td>
+                                <!-- modal Tambah  Groupa Admin-->
+                               
+                                <div class="modal fade bs-example-modal-lg" id="modaladd" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                      <div class="modal-content">
+
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                          </button>
+                                          <h4 class="modal-title" id="myModalLabel"> Tambah Inkubator</h4>
+                                        </div>
+                                        <form class="form-horizontal" action="<?php echo base_url('inkubator/tambah_inkubator')?>" method="post" enctype="multipart/form-data" role="form">
+                                        <div class="modal-body">
+                                        <div class="item form-group">
+                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nama Inkubator<span class="required">*</span>
+                                          </label>
+                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="nama_inkubator" class="form-control col-md-7 col-xs-12" data-validate-length-range="10" data-validate-words="2" name="nama_inkubator" placeholder="Isikan Nama Inkubator" required="required" type="text">
+                                          </div>
+                                        </div>
+                                          <br />
+                                          <br />
+
+                                        </div>
+                                        
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+                                          <button  type="submit" class="btn btn-success">Simpan</button>
+                                        </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <!-- end modal Tambah  -->
+                                <!-- modal Edit-->
+                                <?php foreach($datainkubator as $di){ ?>
+                                 <div class="modal fade bs-example-modal-lg" id="modalupdate<?php echo $di->id_inkubator ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                      <div class="modal-content">
+
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                          </button>
+                                          <h4 class="modal-title" id="myModalLabel">Update Data</h4>
+                                        </div>
+                                        <form class="form-horizontal" action="<?php echo base_url('inkubator/ubah_inkubator')?>" method="post" enctype="multipart/form-data" role="form">
+                                        <div class="modal-body">
+                                        <div class="item form-group">
+                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nama Inkubator<span class="required">*</span>
+                                          </label>
+                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input type="hidden" id="id_inkubator" name="id_inkubator" value="<?php echo $di->id_inkubator ?>">
+                                            <input value="<?php echo $di->nama_inkubator ?>" id="nama_inkubator" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="nama_inkubator" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
+                                          </div>
+                                        </div>
+                                          <br />
+                                          <br />
+
+                                        </div>
+                                        
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                          <button  id="send" type="submit" class="btn btn-success">Save changes</button>
+                                        </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <?php }?>
+                                <!-- end modal Edit -->
+                                 <!-- modal hapus -->
+                                 <?php foreach($datainkubator as $di){ ?>
+                                  <div class="modal fade"  id="modaldelete<?php echo $di->id_inkubator ?>" role="dialog" >
+                                        <div class="modal-dialog modal-sm">
+                                          <div class="modal-content">
+
+                                            <div class="modal-header">
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                              </button>
+                                              <h4 class="modal-title" id="myModalLabel2">Apakah anda yakin untuk menghapus</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                              <p>Anda akan menghapus data ini, tekan 'Batal' untuk kembali ke halaman atau 'Konfirmasi' untuk keluar.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <a type="button" class="btn btn-default" data-dismiss="modal">Batal</a>
+                                              
+                                              <a type="button" class="btn btn-default" <?php echo anchor('inkubator/hapus_inkubator/'.$di->id_inkubator,"Konfirmasi");?> </a>
+                                            </div>
+
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <?php }?>
+                                  <!-- end modal logout -->
+                        
                             </tr>
                             
                             <?php } ?>
-                          </tbody>
-                    </table>
-                      <?php 
-                      echo $this->pagination->create_links();
-                      ?>
-                  </div>
-                </div>
-              </div>
-           </div>
+                            </tbody>
+                            </tr>
+                      
 
-              
-              <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="x_panel">
-                  <div class="x_title">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                      <h2><b>Download Data Inkubator</b></h2>
-                    </div>
-                    <div class="clearfix"></div>
-                  </div>
-                  <form class="form-group" method="get" action="<?php echo base_url('Data/unduhdata');?>" >
-                        <div class='col-sm-5'>
-                          <div class="form-group">
-                          <label for="ex3">Pilih Inkubator</label>
-                            <select name="inkubator" class="form-control" class="required">
-                              <?php foreach ($getinkubator as $value) {?>
-                                <option
-                                  value="<?php echo $value->id_inkubator?>">
-                                   <?php echo $value->nama_inkubator?></option>
-                                     <?php }?>
-                              </select>
-                             
-                          </div>
-                      </div>
-                  
-                      <div class='col-sm-5'>
-                          <div class="form-group">
-                          <label for="ex3">Masukan Waktu Akhir</label>
-                              <div name="waktu_akhir" class='input-group date' id='myDatepicker2'>
-                                  <input name="waktu_akhir" required="required" type='text' class="form-control" class="jsDate" />
-                                  <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
-                      <form class="form-horizontal form-label-left" method="get" action="<?php echo base_url('Data/unduhdata');?>" >
-                        <div class='col-sm-5'>
-                          <div class="form-group">
-                          <label for="ex3">Masukan Waktu Awal</label>
-                              <div name="waktu_awal"  class='input-group date' id='myDatepicker'>
-                                  <input name="waktu_awal" required="required" type='text' class="form-control"  class="jsDate" />
-                                  <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
-                      <br />
-                        <div class='col-sm-5'>
-                        <br />
-                          <button type="submit" class="btn btn-primary">Unduh Data</button>
-                        </div>
-                      </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /end download data -->
+
+                      
+                    </table>
+
+
 
                         
 
-                      </div>
+                </div>
                     </div>
                   </div>
-                </div>
               </div>
 
           
@@ -330,11 +348,6 @@
     <script src="<?php echo base_url();?>assets/vendors/gauge.js/dist/gauge.min.js"></script>
     <!-- bootstrap-progressbar -->
     <script src="<?php echo base_url();?>assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="<?php echo base_url();?>assets/vendors/moment/min/moment.min.js"></script>
-    <script src="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!-- bootstrap-datetimepicker -->    
-    <script src="<?php echo base_url();?>assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- Skycons -->
     <script src="<?php echo base_url();?>assets/vendors/skycons/skycons.js"></script>
     <!-- Flot -->
@@ -349,13 +362,11 @@
     <script src="<?php echo base_url();?>assets/vendors/flot.curvedlines/curvedLines.js"></script>
     <!-- DateJS -->
     <script src="<?php echo base_url();?>assets/vendors/DateJS/build/date.js"></script>
+    
     <!-- bootstrap-daterangepicker -->
     <script src="<?php echo base_url();?>assets/vendors/moment/min/moment.min.js"></script>
     <script src="<?php echo base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!-- iCheck -->
-    <script src="<?php echo base_url();?>assets/vendors/iCheck/icheck.min.js"></script>
-
-     <!-- Datatables -->
+    <!-- Datatables -->
     <script src="<?php echo base_url();?>assets/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo base_url();?>assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>assets/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
@@ -370,44 +381,24 @@
     <script src="<?php echo base_url();?>assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
     <script src="<?php echo base_url();?>assets/vendors/jszip/dist/jszip.min.js"></script>
     <script src="<?php echo base_url();?>assets/vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="<?php echo base_url();?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>
-
+    <script src="<?php echo base_url();?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>      
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url();?>assets/build/js/custom.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Untuk sunting
+        $('#edit-data').on('show.bs.modal', function (event) {
+            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+            var modal          = $(this)
 
-    <!-- Initialize datetimepicker -->
-      <script>
-          $('.jsDate').datetimepicker({
-            onSelect: function(dateText, inst) {
-              var date = $val();
-
-              if($("#myDatepicker").val()!="" && $("#myDatepicker2").val()!=""){
-              var url = "<?=base_url('unduhdata');?>?start="+$("#myDatepicker").val()+'&end='+$("#myDatepicker2").val();
-              alert(url);
-              }
-          }
-           
+            // Isi nilai pada field
+            modal.find('#idlevel').attr("value",div.data('id_level'));
+            modal.find('#level').attr("value",div.data('level'));
           });
-         
-          </script>
+    });
+</script>
 
-      <script>
-      $('#myDatepicker2').datetimepicker({
-        format: 'YYYY-MM-DD HH:mm:ss'
-      });
-      </script>
 
-       <script>
-      $('#myDatepicker').datetimepicker({
-        format: 'YYYY-MM-DD HH:mm:ss'
-      });
-      </script>
-
-      <script>
-      $(document).ready(function() {
-          $('datatable').dataTable();
-      } );
-      </script>
-
+    
   </body>
 </html>

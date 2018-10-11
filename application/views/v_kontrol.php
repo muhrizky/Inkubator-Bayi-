@@ -67,6 +67,7 @@
                         <li><a href="<?php echo base_url();?>lista">List Admin</a>
                         
                         <li><a href="<?php echo base_url();?>groupa">Group Admin</a>
+                        <li><a href="<?php echo base_url();?>inkubator">List Inkubator</a>
                         <p> </p>
                         </li>
                     </ul>
@@ -206,7 +207,8 @@
                           
                             <div class="title">
                               <h3 style= "color:white"><b>Kontrol Suhu</b></h3>
-                              <h2 style= "color:white">Suhu Saat ini</h2>
+                              <h2  style= "color:white"><b>Suhu Saat</b></h2>
+                              <h2 id="nilai-waktu" style= "color:white"></h2>
                               <h1 id="nilai-suhu" style="color:white"></h1>
                             </div>
                             
@@ -231,7 +233,8 @@
                           
                             <div class="title">
                               <h3 style= "color:white"><b>Kontrol Kelembapan</b></h3>
-                              <h2 style= "color:white">Kelembapan Saat ini</h2>
+                              <h2 style= "color:white"><b>Kelembapan Saat</b></h2>
+                              <h2 id="nilai-waktu2" style="color:white"></h2>
                               <h1 id="nilai_kelembapan_sementara" style= "color:white"></h1>
                             </div>
                             
@@ -353,8 +356,10 @@
             var url = "<?=base_url('get-data-monitoring');?>";
             $.get(url, function( data ) {
                 var val = JSON.parse(data);
-                $('#nilai-suhu').text(+val.suhu+"°C");
-                $('#nilai_kelembapan_sementara').text(+val.lembab+"%");
+                $('#nilai-suhu').text(val.suhu+"°C");
+                $('#nilai-waktu').text(val.waktu);
+                $('#nilai-waktu2').text(val.waktu);
+                $('#nilai_kelembapan_sementara').text(val.lembab+"%");
                 
             }); 
             // console.log(url);
@@ -364,10 +369,20 @@
 
     <script>
    $(document).ready(
-
      function (){$('.ui-pnotify').remove();}
      );
     </script>
+
+    <script>
+    $(document).ready(function() {
+    (new PNotify({
+        title: 'Regular Notice',
+        text: 'Check me out! I\'m a notice.',
+        type: 'info',
+        styling: 'bootstrap3'
+    }));
+});
+</script>
     
 
 
