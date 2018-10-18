@@ -250,18 +250,7 @@
                              
                           </div>
                       </div>
-                  
-                      <div class='col-sm-5'>
-                          <div class="form-group">
-                          <label for="ex3">Masukan Waktu Akhir</label>
-                              <div name="waktu_akhir" class='input-group date' id='myDatepicker2'>
-                                  <input name="waktu_akhir" required="required" type='text' class="form-control" class="jsDate" />
-                                  <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
+                      
                       <form class="form-horizontal form-label-left" method="get" action="<?php echo base_url('Data/unduhdata');?>" >
                         <div class='col-sm-5'>
                           <div class="form-group">
@@ -274,6 +263,18 @@
                               </div>
                           </div>
                       </div>
+                      <div class='col-sm-5'>
+                          <div class="form-group">
+                          <label for="ex3">Masukan Waktu Akhir</label>
+                              <div name="waktu_akhir" class='input-group date' id='myDatepicker2'>
+                                  <input name="waktu_akhir" required="required" type='text' class="form-control" class="jsDate" />
+                                  <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                      
                       <br />
                         <div class='col-sm-5'>
                         <br />
@@ -409,6 +410,6 @@
           $('datatable').dataTable();
       } );
       </script>
-
+      
   </body>
 </html>
