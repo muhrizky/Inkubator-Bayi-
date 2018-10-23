@@ -162,19 +162,19 @@
                   <div class="dashboard_graph x_panel">
                     
                     <div class="x_content">
-                    <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="col-md-9 col-sm-12 col-xs-12">
                       <h1><b>Kontrol Inkubator<b></h1>
-                      <p><h2>Menu kontrol dalam sistem ini digunakan ketika menginginkan kontrol secara manual pada inkubator bayi. Sensor yang dapat dikontrol adalah sebagai berikut</h2></p>
+                      <p><h2>Menu kontrol dalam sistem ini digunakan ketika menginginkan kontrol secara manual pada inkubator bayi. Sensor yang dapat dikontrol adalah sensor suhu</h2></p>
                     </div>
                     <br />
                   <div class="col-md-3 col-sm-6 col-xs-6"> 
                       <h1><span class="img-circle img-responsive text-center"><i class="fa fa-cc"></i></span></h1>
                       <h4 class="text-center">Suhu</h4>
                     </div>
-                    <div class="col-md-3 col-sm-6 col-xs-6"> 
+                    <!-- <div class="col-md-3 col-sm-6 col-xs-6"> 
                       <h1><span class="img-circle img-responsive text-center"><i class="fa fa-tint"></i></span></h1>
                       <h4 class="text-center">Kelembapan</h4>
-                    </div>
+                    </div> -->
                     <!-- <div class="col-md-12 col-sm-12 col-xs-12">
 
                         <div class="col-md-12 col-sm-11 col-xs-11">  
@@ -229,12 +229,12 @@
                   
 
                    
-                  <div class="col-md-6 col-sm-6 col-xs-12">
+                  <!-- <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="alert alert-danger alert-dismissible fade in" role="alert"> 
                           
                             <div class="title">
-                              <h3 style= "color:white"><b>Kontrol Kelembapan</b></h3>
-                              <h2 style= "color:white"><b>Kelembapan Saat</b></h2>
+                              <h3 style= "color:white"><b>Setpoint Sensor Suhu</b></h3>
+                              <h2 style= "color:white"><b>Setpoint saat</b></h2>
                               <h2 id="nilai-waktu2" style="color:white"></h2>
                               <h1 id="nilai_kelembapan_sementara" style= "color:white"></h1>
                             </div>
@@ -251,9 +251,9 @@
                           </div>
                         </div>
                      </div>
-                   </div>
+                   </div> -->
 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2><b>Tabel Setpoin Sensor</b></h2>
