@@ -8,3 +8,14 @@ Berikut fungsi aplikasi yang bisa digunakan
 * Monitoring Inkubator dalam bentuk grafik dan chart
 * Kontrol otomatis sensor suhu
 * Melihat dan mencetak data inkubator 
+
+# Screenshoot Aplikasi
+* Tampilan Login 
+
+![alt text](https://raw.githubusercontent.com/muhrizky/SI-Inkubator_Bayi/master/screenshoot/1.png)
+
+* Tampilan Monitoring
+
+![alt text](https://raw.githubusercontent.com/muhrizky/SI-Inkubator_Bayi/master/screenshoot/2.png)
+
+![alt text](https://raw.githubusercontent.com/muhrizky/SI-Inkubator_Bayi/master/screenshoot/3.png)
