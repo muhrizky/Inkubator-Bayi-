@@ -482,7 +482,7 @@
 
      <!-- /java script  chart data suhu-->
      <script>  
-          var ctx = document.getElementById("lineChart2",);
+          var ctx = document.getElementById("lineChart2");
           var lineChart2 = new Chart(ctx, {
           type: 'line',
           data: {
