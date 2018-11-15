@@ -2,7 +2,7 @@
  
 class M_data extends CI_Model{
     function data($number,$offset){
-		return $query = $this->db->order_by('no', 'desc')->get('babymonitoring2',$number,$offset)->result();		
+		return $query = $this->db->order_by('id', 'desc')->get('babymonitoring2',$number,$offset)->result();		
 	}
 
     function tampil_tabel_sensor(){

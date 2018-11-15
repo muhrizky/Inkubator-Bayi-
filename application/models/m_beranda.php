@@ -47,7 +47,7 @@ class M_beranda extends CI_Model{
 	}
 
 	function monitoring(){
-		$this->db->order_by('no', 'desc');
+		$this->db->order_by('id', 'desc');
 		$this->db->limit(1);
 		$data = $this->db->get('babymonitoring2');
 		// $data = $this->db->get('babymonitoring2');
