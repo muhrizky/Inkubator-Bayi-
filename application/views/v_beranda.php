@@ -35,9 +35,11 @@
     <link href="<?php echo base_url();?>assets/build/css/custom.min.css" rel="stylesheet">
     <!-- Custom modal dialog -->
     <link rel="stylesheet" href="<?php echo base_url('assets/custome/style.css'); ?>">
-  </head>
 
+  </head>
+  
   <body class="nav-md">
+ 
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">

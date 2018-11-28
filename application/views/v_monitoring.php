@@ -30,6 +30,7 @@
   </head>
 
   <body class="nav-md">
+  <?php include 'v_notif.php' ?>
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -180,6 +181,11 @@
                 </div>
               </div>
             </div>
+            
+
+                
+                
+                <div class="col-md-12 col-sm-12 col-xs-12" id="alert-status" > </div>
 
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -188,13 +194,13 @@
                     
                     <div class="clearfix"></div>
                   </div>
-
+                    
                   <div class="x_content">
                     <div class="row">
                     
  
                       <div class="col-md-12" >
-
+                        
                         <!-- price element -->
                         <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -460,6 +466,8 @@
       $(document).ready(function(){
           setInterval(function(){ 
             var url = "<?=base_url('get-data-monitoring');?>";
+            var elemS = '<div class="alert alert-success alert-dismissible fade in" role="alert"> <i class="fa fa-circle"></i>  Status Inkubator <strong>AKTIF</strong></div>',
+            elemD = '<div  class="alert alert-warning alert-dismissible fade in" style="background-color:#4B5F71"  role="alert"><i class="fa fa-circle-o"></i>  Status Inkubator <strong>TIDAK AKTIF</strong></div>'; 
             $.get(url, function( data ) {
                 var val = JSON.parse(data);
                 $('#nilai-suhu').text(val.suhu+"°C");
@@ -467,6 +475,18 @@
                 $('#nilai-bb').text(val.bb+" gram");
                 $('#nilai-bb2').text(val.bb+" gram");
                 $('#nilai-waktu').text(val.waktu);
+                $('#nilai-waktu2').text(val.waktu);
+                var today = new Date();
+                var last = new Date(val.waktu);
+                var diffMs = (today - last); // milliseconds between now & Christmas
+                var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+                if(diffMins >= 5) {
+                    $('#alert-status').empty();
+                    $('#alert-status').append(elemD);
+                } else {
+                    $('#alert-status').empty();
+                    $('#alert-status').append(elemS);
+                }
                 
             }); 
             // console.log(url);
@@ -595,8 +615,6 @@
       </script>
 
 
-     
-     
 
 
   </body>

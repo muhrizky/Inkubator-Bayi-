@@ -19,7 +19,10 @@ class M_monitoring extends CI_Model{
         $waktu_akhir = $tanggal.' 23:59:59.999999';
         $query = $this->db->query("SELECT TIME(waktu) as waktu,bb FROM babymonitoring2 WHERE (MOD(MINUTE(waktu),3) = 0) AND waktu BETWEEN '$waktu_awal' AND '$waktu_akhir' ORDER BY `id` ASC");
         return $query->result();
-    }		
+    }
+    
+
+    
 
 
 }
