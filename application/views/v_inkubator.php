@@ -199,8 +199,8 @@
                                 </td>
                                 <!-- modal Tambah  Groupa Admin-->
                                
-                                <div class="modal fade bs-example-modal-lg" id="modaladd" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
+                                <div class="modal fade bs-example-modal-sm" id="modaladd" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
                                       <div class="modal-content">
 
                                         <div class="modal-header">
@@ -211,9 +211,9 @@
                                         <form class="form-horizontal" action="<?php echo base_url('inkubator/tambah_inkubator')?>" method="post" enctype="multipart/form-data" role="form">
                                         <div class="modal-body">
                                         <div class="item form-group">
-                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nama Inkubator<span class="required">*</span>
+                                          <label class="control-label col-md-12 col-sm-3 col-xs-12" for="name">Nama Inkubator<span class="required">*</span>
                                           </label>
-                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <div class="col-md-12 col-sm-6 col-xs-12">
                                             <input id="nama_inkubator" class="form-control col-md-7 col-xs-12" data-validate-length-range="10" data-validate-words="2" name="nama_inkubator" placeholder="Isikan Nama Inkubator" required="required" type="text">
                                           </div>
                                         </div>
@@ -233,21 +233,21 @@
                                 <!-- end modal Tambah  -->
                                 <!-- modal Edit-->
                                 <?php foreach($datainkubator as $di){ ?>
-                                 <div class="modal fade bs-example-modal-lg" id="modalupdate<?php echo $di->id_inkubator ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg">
+                                 <div class="modal fade bs-example-modal-sm" id="modalupdate<?php echo $di->id_inkubator ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
                                       <div class="modal-content">
 
                                         <div class="modal-header">
                                           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                           </button>
-                                          <h4 class="modal-title" id="myModalLabel">Update Data</h4>
+                                          <h4 class="modal-title" id="myModalLabel">Ubah Data</h4>
                                         </div>
                                         <form class="form-horizontal" action="<?php echo base_url('inkubator/ubah_inkubator')?>" method="post" enctype="multipart/form-data" role="form">
                                         <div class="modal-body">
                                         <div class="item form-group">
-                                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nama Inkubator<span class="required">*</span>
+                                          <label class="control-label col-md-12 col-sm-3 col-xs-12" for="name">Nama Inkubator<span class="required">*</span>
                                           </label>
-                                          <div class="col-md-6 col-sm-6 col-xs-12">
+                                          <div class="col-md-12 col-sm-6 col-xs-12">
                                             <input type="hidden" id="id_inkubator" name="id_inkubator" value="<?php echo $di->id_inkubator ?>">
                                             <input value="<?php echo $di->nama_inkubator ?>" id="nama_inkubator" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="nama_inkubator" placeholder="both name(s) e.g Jon Doe" required="required" type="text">
                                           </div>

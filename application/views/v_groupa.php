@@ -244,7 +244,7 @@
                                         <div class="modal-header">
                                           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                                           </button>
-                                          <h4 class="modal-title" id="myModalLabel">UbahData</h4>
+                                          <h4 class="modal-title" id="myModalLabel">Ubah Data</h4>
                                         </div>
                                         <form class="form-horizontal" action="<?php echo base_url('groupa/ubah_group')?>" method="post" enctype="multipart/form-data" role="form">
                                         <div class="modal-body">
